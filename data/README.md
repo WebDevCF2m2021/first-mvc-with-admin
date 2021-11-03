@@ -13,4 +13,3 @@ Contient nos changements Git, ne jamais envoyer sur le FTP
 
 Nos données de préparation de création du site peuvent se retrouver sur github (ou pas !),
 par contre c'est inutile en FTP
-
