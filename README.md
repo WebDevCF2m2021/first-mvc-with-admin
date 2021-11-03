@@ -14,5 +14,12 @@ Nos données de préparation et créations du site, peut se trouver sur github
 `/public`
 Seul dossier accessible avec le cf css ect
 
+## Nos dossier mvc
+
+MVC est un design patern (patron de conception) qui signifie
+- modele
+- view
+- controller
+
 ## VirtualHost
 on créee local virtualhost vers
