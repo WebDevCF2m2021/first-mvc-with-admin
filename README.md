@@ -10,3 +10,9 @@ contient nos changement git ne jamais envoyer sur le ftp
 
 `/data`
 Nos données de préparation et créations du site, peut se trouver sur github
+
+`/public`
+Seul dossier accessible avec le cf css ect
+
+## VirtualHost
+on créee local virtualhost vers
