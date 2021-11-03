@@ -5,6 +5,27 @@ first MVC with administration in PHP 7 procedural - MariaDB with InnoDB engine -
 
 ## Structure
 
+## Nos dossier de bases
+
+Ce sont nos dossiers "non MVC" mise à part le contrôleur frontal se trouvant dans : public/index.php
+
+### Nos dossiers MVC
+
+MVC est un design pattern (patron de conception) qui signifie
+- Model
+- View
+- Controller
+
+C'est une manière de diviser le code pour :
+
+1. Avoir une structure commune sur un projet
+2. Déléguer les tâches sans risque d'écrasement de fichiers
+3. Pourvoir séparer en logique metier la structure du site (le webdesigner travaille sur les vues, les webdeveloppers travaillent sur les modèles et les contrôleurs, le chef de projet impose la structure.)
+
+
+
+https://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur
+
 `/.git`
 
 Contient nos changements Git, ne jamais envoyer sur le FTP
