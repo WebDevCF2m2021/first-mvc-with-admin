@@ -18,7 +18,7 @@ Connectez-vous sur Github et rendez-vous à l'adresse:
 sur code -> https
 
 
-    github.com/mikhawa/first-mvc-with-admin.git
+        github.com/mikhawa/first-mvc-with-admin.git
 
 3. Ouvrez git bash à l'endroit ou vous voulez cloner votre fork (Attention de ne pas être dans un autre projet git !)
 
@@ -56,13 +56,24 @@ Vous devriez avoir les `remote` origin (vers votre nom) et upstream (vers le ser
 
 Avant de travailler créez une nouvelles branche.
 
-    git checkout -b begin
-    git push origin bagin
+        git checkout -b begin
+        git push origin bagin
 
 Si jamais elles existent déjà sur github, vous devez effectuer la même commande, mais récupérer le contenu de la branche (**le clone ne copie pas les branches distantes !**)
 
-    git checkout -b begin
-    git pull origin begin
+        git checkout -b begin
+        git pull origin begin
+
+8. Ne travaillez que sur vos branches, jamais sur la `main`
+
+Car vous devez pouvoir récupérer la main de `upstream`
+
+        git checkout main
+        git pull upstream main
+
+Et mettre à jour la main sur votre fork `origin`
+
+        git push upstream main
 
 ## Structure
 
@@ -97,6 +108,7 @@ C'est une manière de diviser le code pour :
 1. Avoir une structure commune sur un projet
 2. Déléguer les tâches sans risque d'écrasement de fichiers
 3. Pouvoir séparer en logique métier la structure du site (le webdesigner travaille sur les vues, les webdeveloppers travaillent sur les modèles et les contrôleurs, le chef de projet impose la structure)
+
 
 ![Modèle MVC PHP](https://raw.githubusercontent.com/mikhawa/MVC-procedural-with-upload/main/datas/MVC.png)
 
