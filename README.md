@@ -120,6 +120,14 @@ https://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur
 
 Ce dossier contiendra la gestion des données
 
+`/view`
+
+Ce dossier contiendra la gestion du visuel utilisateur
+
+`/controller`
+
+Ce dossier contiendra les liens entre les actions utilisateurs, les modèles et les vues 
+
 
 ## Virtualhost
 
