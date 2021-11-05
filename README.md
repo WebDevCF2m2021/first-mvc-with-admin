@@ -10,7 +10,8 @@ Connectez-vous sur Github et rendez-vous à l'adresse:
 1. Créez un fork en haut à droite sur votre espace personnelle
 
 
-    github.com/mikhawa/first-mvc-with-admin
+        github.com/mikhawa/first-mvc-with-admin
+
 
 2. Copiez le lien de votre fork (ce termine en .git)
 
@@ -24,24 +25,29 @@ sur code -> https
 
     git clone https://github.com/mikhawa/first-mvc-with-admin.git
 
+
 4. Entrez dans le dossier en utilisant `cd` (change directory)
 
 
     cd first-mvc-with-admin
+
 
 Vous devriez vous trouver sur la barnche `main` , pour le vérifier:
 
 
     git branch
 
+
 5. Vous devez retourner sur le git d'origine sur github et copier le code, ensuite ajouter le dans le bash sous le nom `upstream` :
 
 
     git remote add upstream https://github.com/WebDevCF2m2021/first-mvc-with-admin.git
 
+
 6. Vérifiez vos remotes (serveurs distants) en utilisant la commande
 
     git remote -v
+    
 
 7. Créez des branches
 
