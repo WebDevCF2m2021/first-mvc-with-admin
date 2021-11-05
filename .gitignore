@@ -3,3 +3,6 @@ config.php
 
 # plugin's folder Git History (VSC)
 .history/
+
+# PHPStorm
+.idea/
