@@ -59,7 +59,7 @@ Avant de travailler créez une nouvelles branche.
     git checkout -b begin
     git push origin bagin
 
-Si jamais elles existent déjà sur github, vous devez effectuer la même commande
+Si jamais elles existent déjà sur github, vous devez effectuer la même commande, mais récupérer le contenu de la branche (**le clone ne copie pas les branches distantes !**)
 
     git checkout -b begin
     git pull origin begin
