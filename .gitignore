@@ -1,6 +1,8 @@
- # config
- config.php
+# config
+config.php
 
- # plugin git history
- .history
- 
+# plugin's folder Git History (VSC)
+.history/
+
+# PHPStorm
+.idea/
