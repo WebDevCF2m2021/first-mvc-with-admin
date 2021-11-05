@@ -3,6 +3,20 @@ first MVC with administration in PHP 7 procedural - MariaDB with InnoDB engine -
 
 ## GIT
 
+Connectez-vous sur Github et rendez-vous à l'adresse:
+
+https://github.com/WebDevCF2m2021/first-mvc-with-admin
+
+1. Créez un fork en haut à droite sur votre espace personnelle
+
+https://github.com/mikhawa/first-mvc-with-admin
+
+2. Copiez le lien de votre fork
+
+sur code -> https
+
+https://github.com/mikhawa/first-mvc-with-admin.git
+
 ## Structure
 
 ### Nos dossiers de bases 
