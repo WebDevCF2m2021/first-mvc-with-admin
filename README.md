@@ -57,7 +57,7 @@ Vous devriez avoir les `remote` origin (vers votre nom) et upstream (vers le ser
 Avant de travailler créez une nouvelles branche.
 
         git checkout -b begin
-        git push origin bagin
+        git push origin begin
 
 Si jamais elles existent déjà sur github, vous devez effectuer la même commande, mais récupérer le contenu de la branche (**le clone ne copie pas les branches distantes !**)
 
@@ -114,6 +114,11 @@ C'est une manière de diviser le code pour :
 
 
 https://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur
+
+
+`/model`
+
+Ce dossier contiendra la gestion des données
 
 
 ## Virtualhost
