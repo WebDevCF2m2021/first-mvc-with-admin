@@ -57,7 +57,7 @@ Vous devriez avoir les `remote` origin (vers votre nom) et upstream (vers le ser
 Avant de travailler créez une nouvelles branche.
 
         git checkout -b begin
-        git push origin bagin
+        git push origin begin
 
 Si jamais elles existent déjà sur github, vous devez effectuer la même commande, mais récupérer le contenu de la branche (**le clone ne copie pas les branches distantes !**)
 
@@ -108,7 +108,6 @@ C'est une manière de diviser le code pour :
 
 1. Avoir une structure commune sur un projet
 2. Déléguer les tâches sans risque d'écrasement de fichiers
-<<<<<<< HEAD
 3. Pourvoir séparer en logique metier la structure du site (le webdesigner travaille sur les vues, les webdeveloppers travaillent sur les modèles et les contrôleurs, le chef de projet impose la structure.)
 
 
@@ -129,6 +128,18 @@ par contre c'est inutile en FTP
 C'est le seul dossier qui sera accessible à l'utilisateur de votre site, c'est ici que l'on mettra le contrôleur frontal `index.php`, ainsi que les dossiers publiques tels que `css`, `js`, `img` etc...
 
 index.php => notre front controller
+`/model`
+
+Ce dossier contiendra la gestion des données
+
+`/view`
+
+Ce dossier contiendra la gestion du visuel utilisateur
+
+`/controller`
+
+Ce dossier contiendra les liens entre les actions utilisateurs, les modèles et les vues 
+
 ## Virtualhost
 
 On crée en local un virtualhost avec Wamp (ou autre). 
