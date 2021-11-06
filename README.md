@@ -98,6 +98,7 @@ C'est le seul dossier qui sera accessible à l'utilisateur de votre site, c'est 
 
 ### Nos dossiers MVC
 
+
 `MVC` est un `design pattern` (patron de conception) qui signifie 
 - Model
 - View
@@ -138,27 +139,5 @@ Attention, cette adresse pointe bien vers le dossier `public` du site
 
 pour avoir une adresse de type:
 
-http://first-mvc-with-admin
-=======
-3. Pouvoir séparer en logique métier la structure du site (le webdesigner travaille sur les vues, les webdeveloppers travaillent sur les modèles et les contrôleurs, le chef de projet impose la structure)
-
-
-![Modèle MVC PHP](https://raw.githubusercontent.com/mikhawa/MVC-procedural-with-upload/main/datas/MVC.png)
-
-
-https://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur
-
-
-## Virtualhost
-
-On crée en local un virtualhost avec Wamp (ou autre).
-
-Attention cette adresse pointe bien vers le dossier `public` du site :
-
-`...votre_chemin.../first-mvc-with-admin/public`
-
-pour avoir une adresse de type:
-
-http://first-mvc-with-admin:8080/
->>>>>>> 88bde7f75b0aad0a13bf1ba772d54c427ae87acf
+`http://first-mvc-with-admin`
 
