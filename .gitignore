@@ -6,9 +6,6 @@ config.php
 
 # PHPStorm
 .idea/
-<<<<<<< HEAD
-=======
 
 # mwb.bak
 data/mvcadmin.mwb.bak
->>>>>>> 74050f98b8be328990cb7c90dd9623d190099805
