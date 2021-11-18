@@ -1,23 +1,36 @@
 # Affichez tous les champs de la table thearticle
+
 SELECT * FROM thearticle;
+
 # Affichez tous les champs de la table thearticle_has_thesection
+
 SELECT * FROM thearticle_has_thesection;
+
 # Affichez tous les champs de la table theright
+
 SELECT * FROM theright;
+
 # Affichez tous les champs de la table thesection
+
 SELECT * FROM thesection;
+
 # Affichez tous les champs de la table theuser
+
 SELECT * FROM theuser;
+
 # Affichez tous les champs de la table thearticle en y joignant 
 # obligatoirement les champs theuserName et theuserLogin de la table
 # theuser
+
 SELECT a.* , u.theuserLogin, u.theuserName
 FROM thearticle a
 INNER JOIN theuser u
 ON u.idtheuser = a.theuser_idtheuser;
+
 # Affichez tous les champs de la table thearticle en y joignant 
 # facultativement les champs idthesection et thesectionTitle de 
 # la table thesection (2 lignes de résultats)
+
 SELECT a.*, a_s.*, s.idthesection, s.thesectionTitle
 FROM thearticle a
 LEFT JOIN thearticle_has_thesection a_s
@@ -58,3 +71,4 @@ ON s.idthesection = a_s.thesection_idthesection
 INNER JOIN theuser u
 ON u.idtheuser = a.theuser_idtheuser
 GROUP BY a.idthearticle; 
+
