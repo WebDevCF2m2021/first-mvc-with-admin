@@ -40,7 +40,14 @@ LEFT JOIN thesection s
 ON s.idthesection = a_s.thesection_idthesection
 GROUP BY a.idthearticle;
 
- SELECT a.*, a_s.*,u.idtheuser, u.theuserName, u.theuserLogin,
+# Affichez tous les champs de la table thearticle en y joignant 
+# obligatoirement les champs theuserName et theuserLogin de la table
+# theuser et
+# facultativement les champs idthesection et thesectionTitle de 
+# la table thesection mais sur une ligne, en concaténant idthesection
+# avec une "," et thesectionTitle avec "|||"
+
+SELECT a.*, a_s.*,u.idtheuser, u.theuserName, u.theuserLogin,
 GROUP_CONCAT(s.idthesection SEPARATOR ',') AS idthesection, 
 GROUP_CONCAT(s.thesectionTitle SEPARATOR '|||') AS thesectionTitle
 FROM thearticle a
