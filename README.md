@@ -75,6 +75,15 @@ Et mettre à jour la main sur votre fork `origin`
 
         git push upstream main
 
+## A faire
+
+Renommez ou recopiez `config.php.local` en `config.php`.
+
+Importez ensuite la DB dans PhpMyAdmin en mariaDB en utilisant le fichier:
+
+        data/mvcadmin-structure-and-datas.sql
+        
+
 ## Structure
 
 ### Nos dossiers de bases 
