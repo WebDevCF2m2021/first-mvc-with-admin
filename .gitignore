@@ -6,3 +6,7 @@ config.php
 
 # PHPStorm
 .idea/
+
+# mwb.bak
+data/mvcadmin.mwb.bak
+
