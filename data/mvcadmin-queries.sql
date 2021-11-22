@@ -51,3 +51,16 @@ FROM thearticle
 # facultativement les champs idthesection et thesectionTitle de 
 # la table thesection mais sur une ligne, en concaténant idthesection
 # avec une "," et thesectionTitle avec "|||"
+SELECT thearticle.*, 
+	   theuser.theuserName, theuser.theuserLogin,	
+					GROUP_CONCAT(thesection.idthesection) AS idthesection, 
+					GROUP_CONCAT(thesection.thesectionTitle SEPARATOR '|||') AS thesectionTitle
+FROM thearticle
+	INNER JOIN theuser
+		ON thearticle.theuser_idtheuser = theuser.idtheuser 
+	LEFT JOIN thearticle_has_thesection
+		ON thearticle.idthearticle = thearticle_has_thesection.thearticle_idthearticle
+    LEFT JOIN thesection
+		ON thearticle_has_thesection.thesection_idthesection = thesection.idthesection
+        
+    GROUP BY thearticle.idthearticle    ;
