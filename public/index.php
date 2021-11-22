@@ -10,9 +10,15 @@ require_once "../config.php";
 require_once "../model/thearticleModel.php";
 
 // connexion à la DB
+$dbConnect = mysqli_connect(DB_HOST,DB_LOGIN,DB_PWD,DB_NAME,DB_PORT);
+mysqli_set_charset($dbConnect,DB_ENCODE);
 
 // pour le moment on est sur accueil
-$recupArticle = thearticleHomepageSelectAll();
+$recupArticle = thearticleHomepageSelectAll($dbConnect);
+
+/*
+ICI
+*/
 
 var_dump($recupArticle);
 

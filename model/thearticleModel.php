@@ -2,8 +2,8 @@
 
 // création des fonctions liées à la gestion de la table thearticle
 
-function thearticleHomepageSelectAll(): array{
-    // requêtes
+function thearticleHomepageSelectAll(mysqli $db): array{
+    // requête
     $sql="SELECT thearticle.*, 
     theuser.theuserName, theuser.theuserLogin,	
                  GROUP_CONCAT(thesection.idthesection) AS idthesection, 
@@ -17,6 +17,15 @@ FROM thearticle
      ON thearticle_has_thesection.thesection_idthesection = thesection.idthesection 
  GROUP BY thearticle.idthearticle    ;";
 
- return ["coucou"];
+
+/*
+
+ICI
+
+*/
+
+$recup = mysqli_query($db,$sql);
+
+return mysqli_fetch_all($recup,MYSQLI_ASSOC);
 
 }
