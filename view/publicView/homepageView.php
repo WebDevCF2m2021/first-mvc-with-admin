@@ -48,13 +48,36 @@
             <div class="col-lg-12 mx-auto">
             
                     <h1>Tous nos articles</h1>
-                    <p class="lead">Nombre d'articles: </p>
+                    <p class="lead">Nombre d'articles: <?= count($recupArticle) ?> </p>
                     <div class="alert alert-dark" role="alert">
   Ce site est un travail scolaire et n'est pas référencé, il est en lien avec ce référentiel 
   <a href="https://github.com/WebDevCF2m2021/first-mvc-with-admin" target="_blank">Github</a>.<br> Ce site est un exemple de MVC en PHP/MySQL procédural d'une administration à plusieurs niveaux de droits
                     </div>
 
                     <hr>
+                    <?php 
+                    // si pas d'articles (article vide)
+                    if(empty($recupArticle)) :
+                    ?>
+                    <h3>Pas encore d'articles sur le site</h3>
+
+                    <?php
+                    // sinon (on a au moins un article)
+                    else :
+                        // tant que l'on a des articles on les mets dans un alias nommé item
+                        foreach($recupArticle as $item):
+                    ?>
+    <div>
+        <h4><?=$item['thearticleTitle']?></h4>
+        <div><?=$item['thesectionTitle']?></div>
+        <p><?=cuteTheText($item['thearticleText'],200)?></p>
+        <div>Ecrit par <?=$item['theuserName']?> le <?=frenchDate($item['thearticleDate'],3)?></div>
+        <hr>
+    </div>
+                    <?php
+                        endforeach;
+                    endif;
+                    ?>
 
                 <hr>
                 <a href="#page-top">Retour en haut</a>

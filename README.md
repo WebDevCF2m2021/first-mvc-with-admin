@@ -32,7 +32,7 @@ sur code -> https
         cd first-mvc-with-admin
 
 
-Vous devriez vous trouver sur la barnche `main` , pour le vérifier:
+Vous devriez vous trouver sur la branche `main` , pour le vérifier:
 
 
         git branch
