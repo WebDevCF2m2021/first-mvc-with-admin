@@ -2,6 +2,7 @@
 
 // création des fonctions liées à la gestion de la table thearticle
 
+// affichage de tous les articles sur la page d'accueil (tant qu'ils ont un auteur)
 function thearticleHomepageSelectAll(mysqli $db): array{
     // requête
     $sql="SELECT thearticle.*, 
@@ -15,16 +16,10 @@ FROM thearticle
      ON thearticle.idthearticle = thearticle_has_thesection.thearticle_idthearticle
  LEFT JOIN thesection
      ON thearticle_has_thesection.thesection_idthesection = thesection.idthesection 
- GROUP BY thearticle.idthearticle    ;";
+ GROUP BY thearticle.idthearticle     ;";
 
-
-/*
-
-ICI
-
-*/
-
-$recup = mysqli_query($db,$sql);
+// récupération des articles, ou affichage de l'erreur SQL et arrêt
+$recup = mysqli_query($db,$sql) or die("Erreur SQL :".mysqli_error($db));
 
 return mysqli_fetch_all($recup,MYSQLI_ASSOC);
 

@@ -64,3 +64,18 @@ FROM thearticle
 		ON thearticle_has_thesection.thesection_idthesection = thesection.idthesection
         
     GROUP BY thearticle.idthearticle    ;
+    
+# idem précédent  mais avec un WHERE sur l'id de l'article   (0 ou 1 résultat possible)
+SELECT thearticle.*, 
+    theuser.theuserName, theuser.theuserLogin,	
+                 GROUP_CONCAT(thesection.idthesection) AS idthesection, 
+                 GROUP_CONCAT(thesection.thesectionTitle SEPARATOR '|||') AS thesectionTitle
+FROM thearticle
+ INNER JOIN theuser
+     ON thearticle.theuser_idtheuser = theuser.idtheuser 
+ LEFT JOIN thearticle_has_thesection
+     ON thearticle.idthearticle = thearticle_has_thesection.thearticle_idthearticle
+ LEFT JOIN thesection
+     ON thearticle_has_thesection.thesection_idthesection = thesection.idthesection 
+     WHERE thearticle.idthearticle=2
+ GROUP BY thearticle.idthearticle     ;
