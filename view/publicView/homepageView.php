@@ -55,7 +55,29 @@
                     </div>
 
                     <hr>
-                    <?php var_dump($recupArticle) ?>
+                    <?php 
+                    // si pas d'articles (article vide)
+                    if(empty($recupArticle)) :
+                    ?>
+                    <h3>Pas encore d'articles sur le site</h3>
+
+                    <?php
+                    // sinon (on a au moins un article)
+                    else :
+                        // tant que l'on a des articles on les mets dans un alias nommé item
+                        foreach($recupArticle as $item):
+                    ?>
+    <div>
+        <h4><?=$item['thearticleTitle']?></h4>
+        <div><?=$item['thesectionTitle']?></div>
+        <p><?=cuteTheText($item['thearticleText'],200)?></p>
+        <div>Ecrit par <?=$item['theuserName']?> le <?=frenchDate($item['thearticleDate'],3)?></div>
+        <hr>
+    </div>
+                    <?php
+                        endforeach;
+                    endif;
+                    ?>
 
                 <hr>
                 <a href="#page-top">Retour en haut</a>
