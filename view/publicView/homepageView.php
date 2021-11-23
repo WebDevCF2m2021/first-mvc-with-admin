@@ -55,6 +55,7 @@
                     </div>
 
                     <hr>
+                    <?php var_dump($recupArticle) ?>
 
                 <hr>
                 <a href="#page-top">Retour en haut</a>

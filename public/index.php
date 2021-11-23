@@ -16,11 +16,6 @@ mysqli_set_charset($dbConnect,DB_ENCODE);
 // pour le moment on est sur accueil
 $recupArticle = thearticleHomepageSelectAll($dbConnect);
 
-/*
-ICI
-*/
-
-var_dump($recupArticle);
 
 // chargement de la vue de homepage
 include_once "../view/publicView/homepageView.php";
