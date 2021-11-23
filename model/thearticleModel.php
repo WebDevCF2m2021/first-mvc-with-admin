@@ -16,7 +16,6 @@ FROM thearticle
      ON thearticle.idthearticle = thearticle_has_thesection.thearticle_idthearticle
  LEFT JOIN thesection
      ON thearticle_has_thesection.thesection_idthesection = thesection.idthesection 
-     WHERE thearticle.idthearticle=1
  GROUP BY thearticle.idthearticle     ;";
 
 // récupération des articles, ou affichage de l'erreur SQL et arrêt
