@@ -69,7 +69,23 @@
                     ?>
     <div>
         <h4><?=$item['thearticleTitle']?></h4>
-        <div><?=$item['thesectionTitle']?></div>
+        <div><?php
+        // on va chercher à transformer la chaîne de caractère en tableau indexé, avec comme valeurs, les éléments coupés grâce à un séparateur
+        $titleSection = explode("|||",$item['thesectionTitle']);
+        $idSection = explode(",",$item['idthesection']);
+        
+        // Pour mettre les résultats dans l'ordre du titre ASC, comme celà n'a pas été fait côté SQL, on peut combiner les 2 tableaux générés ci-dessus avec array_combine ($clef => $valeur)
+        $sections = array_combine($idSection,$titleSection);
+
+        // on veut classer ce nouveau tableau par la valeur ascendante en gardant le rapport $clef -> $valeur : voir les fonctions de tri des tableaux : https://www.php.net/manual/fr/array.sorting.php
+        asort($sections);
+
+        foreach($sections as $clef => $valeur): 
+            ?>
+        <a href="?idsection=<?=$clef?>"><?=$valeur?></a> 
+        <?php
+        endforeach;
+        ?></div>
         <p><?=cuteTheText($item['thearticleText'],200)?></p>
         <div>Ecrit par <?=$item['theuserName']?> le <?=frenchDate($item['thearticleDate'],3)?></div>
         <hr>
