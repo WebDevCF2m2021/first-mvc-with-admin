@@ -19,18 +19,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav">
+                <?php
+    // var_dump($recupSection);
+                foreach($recupSection as $section):
+                ?>
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="?idrubrique=1">section 1</a>
+                           href="?idsection=<?=$section['idthesection']?>"><?=$section['thesectionTitle']?></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="?idrubrique=2">section 2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="?idrubrique=3">section 3</a>
-                    </li>
+                    <?php
+                endforeach;
+                    ?>
 
                 <li class="nav-item">
                     <a class="nav-link" href="?p=connect">Connexion</a>
