@@ -68,7 +68,7 @@
                         foreach($recupArticle as $item):
                     ?>
     <div>
-        <h4><?=$item['thearticleTitle']?></h4>
+        <h4><a href="?idarticle=<?=$item['idthearticle']?>"><?=$item['thearticleTitle']?></a></h4>
         <div><?php
         // on va chercher à transformer la chaîne de caractère en tableau indexé, avec comme valeurs, les éléments coupés grâce à un séparateur
         $titleSection = explode("|||",$item['thesectionTitle']);
@@ -81,13 +81,13 @@
         asort($sections);
 
         foreach($sections as $clef => $valeur): 
-            ?>
-        <a href="?idsection=<?=$clef?>"><?=$valeur?></a> 
+        ?>
+        <a href="?idsection=<?=$clef?>"><?=$valeur?></a> | 
         <?php
         endforeach;
         ?></div>
-        <p><?=cuteTheText($item['thearticleText'],200)?></p>
-        <div>Ecrit par <?=$item['theuserName']?> le <?=frenchDate($item['thearticleDate'],3)?></div>
+        <p><?=cuteTheText($item['thearticleText'],200)?> <a href="?idarticle=<?=$item['idthearticle']?>">Lire la suite</a></p>
+        <div>Ecrit par <a href="?iduser=<?=$item['idtheuser']?>"><?=$item['theuserName']?></a> le <?=frenchDate($item['thearticleDate'],3)?></div>
         <hr>
     </div>
                     <?php
