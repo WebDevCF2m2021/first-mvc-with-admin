@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mar. 23 nov. 2021 à 14:44
+-- Généré le : ven. 26 nov. 2021 à 11:40
 -- Version du serveur :  10.5.4-MariaDB
 -- Version de PHP : 7.3.21
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `thearticle` (
   `theuser_idtheuser` int(10) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`idthearticle`),
   KEY `fk_thearticle_theuser1_idx` (`theuser_idtheuser`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `thearticle`
@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS `thearticle` (
 
 INSERT INTO `thearticle` (`idthearticle`, `thearticleTitle`, `thearticleText`, `thearticleDate`, `thearticleStatus`, `theuser_idtheuser`) VALUES
 (1, 'Les Secrets d\'un Esprit Millionaire', 'Savez-vous pourquoi certaines personnes s\'enrichissent facilement, alors que d\'autres semblent destinées à une vie remplie de difficultés financières? Est-ce une question d\'éducation, d\'intelligence, de compétences, de moments opportuns, d\'habitudes de travail, de contacts, de chance, ou encore de choix de carrière, d\'entreprise ou d\'investissement? Et bien non !\r\n\r\nPour T. Harv Eker, chaque personne a un plan financier personnel imprimé dans son subconscient, un plan qui détermine son avenir. Vous avez beau tout savoir sur le marketing, la vente, les négociations, la bourse, l\'immobilier et le monde de la finance, si votre plan financier intérieur ne vise pas un degré de réussite élevé, vous n\'aurez jamais beaucoup d\'argent. Et si, par hasard, vous veniez à avoir une somme importante, vous la perdriez fort probablement! Il est donc urgent de refaire son plan financier intérieur pour réussir de manière naturelle et automatique.\r\n\r\nGrâce à une brillante alliance de débrouillardise et d\'humour, T. Harv Eker explique comment l\'enfance façonne la destinée financière. Consultez aussi de nombreux dossiers qui décrivent exactement en quoi les riches pensent et agissent différemment de la plupart des gens pauvres et de la classe moyenne. \r\n\r\nVous y trouverez des actions simples à mettre en pratique pour accroître ses revenus et faire fortune.Pour T. Harv Eker, les choses sont simples : si vous pensez comme les riches et faites ce qu\'ils font, vous pouvez devenir aussi riche qu\'eux !', '2021-11-18 13:57:19', 1, 1),
-(2, 'Kant et la paix universelle', 'Vers la paix perpétuelle (Titre original : Zum ewigen Frieden. Ein philosophischer Entwurf) est un essai philosophique d\'Emmanuel Kant publié en 1795.\r\n\r\nReprenant une idée de Charles-Irénée Castel de Saint-Pierre dont était paru en 1713 le Projet de paix perpétuelle, Kant y formule un certain nombre de principes destinés à créer les conditions d’une « paix perpétuelle » (par opposition à une simple « cessation des hostilités » provisoire qui est la seule forme de paix possible tant que « l’état de nature » continue de régner entre les États). \r\n\r\nIl constitue les prémices de la théorie de la paix démocratique, et du courant idéaliste en théorie des relations internationales.', '2021-11-23 14:22:11', 1, 2);
+(2, 'Kant et la paix universelle', 'Vers la paix perpétuelle (Titre original : Zum ewigen Frieden. Ein philosophischer Entwurf) est un essai philosophique d\'Emmanuel Kant publié en 1795.\r\n\r\nReprenant une idée de Charles-Irénée Castel de Saint-Pierre dont était paru en 1713 le Projet de paix perpétuelle, Kant y formule un certain nombre de principes destinés à créer les conditions d’une « paix perpétuelle » (par opposition à une simple « cessation des hostilités » provisoire qui est la seule forme de paix possible tant que « l’état de nature » continue de régner entre les États). \r\n\r\nIl constitue les prémices de la théorie de la paix démocratique, et du courant idéaliste en théorie des relations internationales.', '2021-11-23 14:22:11', 1, 2),
+(3, 'Tri des tableaux', 'PHP dispose de nombreuses fonctions pour trier les tableaux, et cette section du manuel va vous aider à vous y retrouver.\r\n\r\nLes différences principales sont :\r\n\r\nCertains des tris de tableau sont basés sur les clés, tandis que les autres sont basés sur les valeurs : $array[\'cle\'] = \'valeur\';\r\n\r\nCertains tris maintiennent la corrélation entre les clés et les valeurs, et d\'autres non, ce qui signifie que les clés sont généralement réaffectées numériquement (0,1,2 ...)\r\nL\'ordre du tri peut être : alphabétique, croissant, décroissant, numérique, naturel, aléatoire, ou définit par l\'utilisateur.\r\n\r\nNote : toutes ces fonctions de tris travaillent sur le tableau lui-même, contrairement à la pratique normale qui serait de retourner le tableau trié.\r\nSi une de ces fonctions de tri évalue 2 membres comme égaux, alors ils retiennent l\'ordre original. Antérieur à PHP 8.0.0, leur ordre était indéfini (le tri n\'était pas stable).', '2021-11-26 11:37:41', 1, 1);
 
 -- --------------------------------------------------------
 
