@@ -17,20 +17,11 @@ mysqli_set_charset($dbConnect, DB_ENCODE);
 
 
 /*
-ON est ICI
-Division des contrôleurs
+Division des contrôleurs:
+Contrôleur en mode publique
 */
 
-// pour le moment on est sur accueil
-// récupération des articles au format souhaité pour la page d'accueil
-$recupArticle = thearticleHomepageSelectAll($dbConnect);
-// récupération des sections pour le menu du haut
-$recupSection = thesectionSelectAll($dbConnect);
-
-
-
-// chargement de la vue de homepage
-include_once "../view/publicView/homepageView.php";
+require_once "../controller/publicController.php" ;
 
 // facultatif mais conseillé
 mysqli_close($dbConnect);
