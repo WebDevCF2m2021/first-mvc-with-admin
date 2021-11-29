@@ -1,11 +1,33 @@
 <?php
-
+// récupération des sections pour le menu du haut
+// Est utile pour toutes les pages !
+$recupSection = thesectionSelectAll($dbConnect);
 
 // si on a cliqué sur une section et que sa valeur est de type texte ne contenant QUE des numériques (ctype_digit) et pas le 0 (!empty => différent de vide)
 if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET['idsection'])) {
     // conversion en integer
     $idsection = (int) $_GET['idsection'];
-    echo "id de la section : " . $idsection;
+
+    // récupération de la section
+    $thesection = thesectionSelectOne($dbConnect, $idsection);
+
+    // si la réponse à thesectionSelectOne est null
+    if (is_null($thesection)) {
+
+        /*
+        ON EST ICI
+        */
+        echo "<h1>ERROR 404</h1>";
+
+        // sinon    
+    } else {
+
+        // A changer 
+        $recupArticle = thearticleHomepageSelectAll($dbConnect);
+
+        // Appel de la vue de la section
+        include_once "../view/publicView/sectionView.php";
+    }
 
     // si on a cliqué sur le détail d'un article
 } elseif (isset($_GET['idarticle']) && ctype_digit($_GET['idarticle']) && !empty($_GET['idarticle'])) {
@@ -27,8 +49,7 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
     // pour le moment on est sur accueil
     // récupération des articles au format souhaité pour la page d'accueil
     $recupArticle = thearticleHomepageSelectAll($dbConnect);
-    // récupération des sections pour le menu du haut
-    $recupSection = thesectionSelectAll($dbConnect);
+
 
 
 
