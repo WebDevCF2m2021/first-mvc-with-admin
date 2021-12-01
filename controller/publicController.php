@@ -11,13 +11,15 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
     // récupération de la section
     $thesection = thesectionSelectOne($dbConnect, $idsection);
 
-    // si la réponse à thesectionSelectOne est null
+    // si la réponse à thesectionSelectOne est null (on a pas trouvé la section)
     if (is_null($thesection)) {
 
-        /*
-        ON EST ICI
-        */
-        echo "<h1>ERROR 404</h1>";
+        // création du message d'erreur
+        $error = "Cette section n'existe plus, cliquez dans le menu du haut de page pour voir les sections existantes,<br> ou retournez sur notre page d'<a href='./'>accueil</a>";
+
+
+        // Appel de la vue de l'erreur 404'
+        include_once "../view/error404View.php";
 
         // sinon    
     } else {
