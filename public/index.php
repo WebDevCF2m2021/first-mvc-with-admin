@@ -1,5 +1,7 @@
 <?php
-
+// pour compter le temps de chargement du site (alternative au hrtime)
+$begin = microtime(true);
+// sleep(3);
 /*
  chargement des dépendances
 */
@@ -25,3 +27,8 @@ require_once "../controller/publicController.php" ;
 
 // facultatif mais conseillé
 mysqli_close($dbConnect);
+
+// temps de fin du script
+$end = microtime(true) - $begin;
+// affichage en commentaire du temps en secondes
+echo "<!-- $end -->";
