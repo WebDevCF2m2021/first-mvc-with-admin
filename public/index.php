@@ -13,14 +13,14 @@ require_once "../model/thearticleModel.php";
 $dbConnect = mysqli_connect(DB_HOST,DB_LOGIN,DB_PWD,DB_NAME,DB_PORT);
 mysqli_set_charset($dbConnect,DB_ENCODE);
 
-// pour le moment on est sur accueil
-$recupArticle = thearticleHomepageSelectAll($dbConnect);
-
 /*
-ICI
+Division des contrôleurs:
+Contrôleur en mode publique
 */
 
 var_dump($recupArticle);
 
-// chargement de la vue de homepage
-include_once "../view/publicView/homepageView.php";
+require_once "../controller/publicController.php" ;
+
+// facultatif mais conseillé
+mysqli_close($dbConnect);
