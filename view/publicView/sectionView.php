@@ -47,7 +47,7 @@
                 <div class="col-lg-12 mx-auto">
 
                     <h1>Section : <?= $thesection['thesectionTitle'] ?></h1>
-                    <p class="lead">Nombre d'articles de la section: <?= count($recupArticle) ?> </p>
+                    <p class="lead"><?= $thesection['thesectionDesc'] ?><br><br>Nombre d'articles de la section: <?= count($recupArticle) ?> </p>
                     <div class="alert alert-dark" role="alert">
                         Ce site est un travail scolaire et n'est pas référencé, il est en lien avec ce référentiel
                         <a href="https://github.com/WebDevCF2m2021/first-mvc-with-admin" target="_blank">Github</a>.<br> Ce site est un exemple de MVC en PHP/MySQL procédural d'une administration à plusieurs niveaux de droits
