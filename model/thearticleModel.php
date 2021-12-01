@@ -3,9 +3,10 @@
 // création des fonctions liées à la gestion de la table thearticle
 
 // récupération de tous les articles par date DESC pour la page d'accueil (tant qu'ils ont un auteur et sont publiés), avec un texte de 250 caractères, avec auteurs et sections incluses
-function thearticleHomepageSelectAll(mysqli $db): array{
+function thearticleHomepageSelectAll(mysqli $db): array
+{
     // requête
-    $sql=" SELECT a.idthearticle, a.thearticleTitle, LEFT(a.thearticleText,250) AS thearticleText, a.thearticleDate,
+    $sql = " SELECT a.idthearticle, a.thearticleTitle, LEFT(a.thearticleText,250) AS thearticleText, a.thearticleDate,
     u.idtheuser, u.theuserName, u.theuserLogin,	
                   GROUP_CONCAT(s.idthesection) AS idthesection, 
                   GROUP_CONCAT(s.thesectionTitle SEPARATOR '|||') AS thesectionTitle
@@ -20,11 +21,48 @@ WHERE a.thearticleStatus = 1
   GROUP BY a.idthearticle
   ORDER BY a.thearticleDate DESC;  ";
 
-// récupération des articles, ou affichage de l'erreur SQL et arrêt
-$recup = mysqli_query($db,$sql) or die("Erreur SQL :".mysqli_error($db));
+    // récupération des articles, ou affichage de l'erreur SQL et arrêt
+    $recup = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
 
-return mysqli_fetch_all($recup,MYSQLI_ASSOC);
+    return mysqli_fetch_all($recup, MYSQLI_ASSOC);
+}
 
+// récupération de tous les articles par date DESC pour la page section (tant qu'ils ont un auteur et sont publiés), avec un texte de 250 caractères, avec auteurs et sections incluses SI l'article se trouve dans la section
+function thearticleSectionSelectAll(mysqli $db, int $idsection): array
+{
+    // requête
+    $sql = " SELECT a.idthearticle, a.thearticleTitle, LEFT(a.thearticleText,250) AS thearticleText, a.thearticleDate,
+    u.idtheuser, u.theuserName, u.theuserLogin,	
+# Au lieu de prendre la jointure où le WHERE ne permet d'avoir qu'une section
+# On va prendre s2 qui est une jointure sœur mais avec un autre alias
+                  GROUP_CONCAT(s2.idthesection) AS idthesection, 
+                  GROUP_CONCAT(s2.thesectionTitle SEPARATOR '|||') AS thesectionTitle
+FROM thearticle a
+  INNER JOIN theuser u
+      ON a.theuser_idtheuser = u.idtheuser 
+
+# jointure pour récupérer les articles de la section
+  LEFT JOIN thearticle_has_thesection h
+      ON a.idthearticle = h.thearticle_idthearticle
+  LEFT JOIN thesection s
+      ON h.thesection_idthesection = s.idthesection
+
+# jointure équivalente mais sans lien avec le WHERE qui nous permet de 
+# récupérer toutes les sections dans lesquelles se trouve l'article
+  LEFT JOIN thearticle_has_thesection h2
+      ON a.idthearticle = h2.thearticle_idthearticle
+  LEFT JOIN thesection s2
+      ON h2.thesection_idthesection = s2.idthesection 
+
+# condition qui récupère les articles de la section
+WHERE a.thearticleStatus = 1 AND s.idthesection = $idsection
+  GROUP BY a.idthearticle
+  ORDER BY a.thearticleDate DESC;  ";
+
+    // récupération des articles, ou affichage de l'erreur SQL et arrêt
+    $recup = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+
+    return mysqli_fetch_all($recup, MYSQLI_ASSOC);
 }
 
 /**
@@ -35,18 +73,18 @@ return mysqli_fetch_all($recup,MYSQLI_ASSOC);
  * @return string
  * coupe sans couper les mots
  */
-function cuteTheText(string $text,int $length=255):string{
-    if(strlen($text)>$length){ //si le texte est plus grand que $length
-        $text = substr($text,0,$length); // couper le text à la valeur donnée dans la fonction
-        $int = strrpos($text,' '); // retourne le dernier espace sur la phrase coupée (int)
-        $text = substr($text,0,$int); //coupe au dernier espace
-        return $text." ..."; //retourne la phrase en concaténant "..."
-    }
-    else{
+function cuteTheText(string $text, int $length = 255): string
+{
+    if (strlen($text) > $length) { //si le texte est plus grand que $length
+        $text = substr($text, 0, $length); // couper le text à la valeur donnée dans la fonction
+        $int = strrpos($text, ' '); // retourne le dernier espace sur la phrase coupée (int)
+        $text = substr($text, 0, $int); //coupe au dernier espace
+        return $text . " ..."; //retourne la phrase en concaténant "..."
+    } else {
         return $text; //retourne le texte initiale
     }
     // idem en ternaire
-    return strlen($text)>$length?substr($text,0,strrpos(substr($text,0,$length),' '))." ...":$text;
+    return strlen($text) > $length ? substr($text, 0, strrpos(substr($text, 0, $length), ' ')) . " ..." : $text;
 }
 
 /**
@@ -66,54 +104,55 @@ function cuteTheText(string $text,int $length=255):string{
  * @param  String $date
  * @return String
  */
-function frenchDate($date,$format=1){
+function frenchDate($date, $format = 1)
+{
 
     // sortie
-    $out="";
+    $out = "";
 
     // Les jours en français
-    $joursTab = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+    $joursTab = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
 
     // Les mois en français, on le fait commencer à 1, car l'expression "n" de date nous donne les mois de 1 (janvier) à 12 (décembre)
-    $moisTab = [1=>"janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+    $moisTab = [1 => "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
 
     // transformation de la date en Timestamp (secondes depuis le 1/1/1970 )
     $date = strtotime($date);
 
     // En switch (vérification d'égalité non stricte "==")
-    switch($format){
+    switch ($format) {
 
         case 1:
-        $out.=  $joursTab[date("w",$date)]." " // jour de la semaine en français
-                .date("d",$date)." " // chiffre du jour
-                .$moisTab[date("n",$date)]." " // mois en français
-                .date("Y à H:i",$date); // année / heures / minutes
-                break;
+            $out .=  $joursTab[date("w", $date)] . " " // jour de la semaine en français
+                . date("d", $date) . " " // chiffre du jour
+                . $moisTab[date("n", $date)] . " " // mois en français
+                . date("Y à H:i", $date); // année / heures / minutes
+            break;
 
-        case 2:        
-        $out.=  date("d",$date)." " // chiffre du jour
-                .$moisTab[date("n",$date)]." " // mois en français
-                .date("Y à H\hi",$date); // antislash pour éviter l'interprétation de h
-                break;
+        case 2:
+            $out .=  date("d", $date) . " " // chiffre du jour
+                . $moisTab[date("n", $date)] . " " // mois en français
+                . date("Y à H\hi", $date); // antislash pour éviter l'interprétation de h
+            break;
         case 3:
-        $out.=  $joursTab[date("w",$date)]." " // jour de la semaine en français
-                .date("d",$date)." " // chiffre du jour
-                .$moisTab[date("n",$date)]." " // mois en français
-                .date("Y à ",$date); // année
-        // vérification pour le "s" de heure (si au dessus "01", récupération de l'heure, toujours unstring)
-        $h = date("H",$date);
-        // avec un comparaison non stricte, par défaut PHP utilise le transtypage, donc "H" qui est un string, par exemple "02" (convertit en int) sera comparé à 2 
-        if($h >= 2) {
-            $out.=$h." heures";
-        }else{
-            $out.=$h." heure";
-        }
-        break;
+            $out .=  $joursTab[date("w", $date)] . " " // jour de la semaine en français
+                . date("d", $date) . " " // chiffre du jour
+                . $moisTab[date("n", $date)] . " " // mois en français
+                . date("Y à ", $date); // année
+            // vérification pour le "s" de heure (si au dessus "01", récupération de l'heure, toujours unstring)
+            $h = date("H", $date);
+            // avec un comparaison non stricte, par défaut PHP utilise le transtypage, donc "H" qui est un string, par exemple "02" (convertit en int) sera comparé à 2 
+            if ($h >= 2) {
+                $out .= $h . " heures";
+            } else {
+                $out .= $h . " heure";
+            }
+            break;
 
-        // équivalence du else (si rien n'est vrai)
+            // équivalence du else (si rien n'est vrai)
         default:
 
-            return "Format de date non reconnue";   
+            return "Format de date non reconnue";
     }
 
 

@@ -11,6 +11,7 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
     // récupération de la section
     $thesection = thesectionSelectOne($dbConnect, $idsection);
 
+
     // si la réponse à thesectionSelectOne est null (on a pas trouvé la section)
     if (is_null($thesection)) {
 
@@ -24,8 +25,8 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
         // sinon    
     } else {
 
-        // A changer 
-        $recupArticle = thearticleHomepageSelectAll($dbConnect);
+        // récupération des articles se trouvant dans la section
+        $recupArticle = thearticleSectionSelectAll($dbConnect, $idsection);
 
         // Appel de la vue de la section
         include_once "../view/publicView/sectionView.php";
