@@ -49,6 +49,12 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
 
         // Appel de la vue de l'erreur 404'
         include_once "../view/error404View.php";
+
+        // on a récupéré un article    
+    } else {
+
+        // Appel de la vue: 
+        include_once "../view/publicView/articleView.php";
     }
 
     // si on a cliqué sur le détail d'un utilisateur
