@@ -1,7 +1,12 @@
 <?php
+// activation des erreurs si on est en mode production
+ini_set('display_errors', 1);
+
 // pour compter le temps de chargement du site (alternative au hrtime)
 $begin = microtime(true);
-// sleep(3);
+
+// sleep(3); // attente de 3 secondes pour tester le chargement
+
 /*
  chargement des dépendances
 */
@@ -23,7 +28,7 @@ Division des contrôleurs:
 Contrôleur en mode publique
 */
 
-require_once "../controller/publicController.php" ;
+require_once "../controller/publicController.php";
 
 // facultatif mais conseillé
 mysqli_close($dbConnect);
