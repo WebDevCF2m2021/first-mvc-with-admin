@@ -7,12 +7,15 @@
  * thearticleSelectOneById
  * 
  * récupération d'un article complet (tant qu'ils ont un auteur et sont publiés) avec auteur et sections incluses
+ * 
+ * si l'id du tableau envoyer vaut null, l'article n'a pas été trouvé : (is_null($array('idthearticle')))
  *
  * @param  mysqli $db
  * @param  int $idarticle
- * @return array|null
+ * @return array
+ * 
  */
-function thearticleSelectOneById(mysqli $db, int $idarticle): ?array
+function thearticleSelectOneById(mysqli $db, int $idarticle): array
 {
     // requête de sélection d'un article par son id, avec ses rubriques classées par ordre alphabétique (! dans le GROUP_CONCAT, il faut les même ORDER BY pour les colonnes venant de la même table!). Comme on ne peut avoir qu'un (ou 0) résultat, le GROUP BY est inutile
     $sql = " SELECT a.idthearticle, a.thearticleTitle, a.thearticleText, a.thearticleDate,

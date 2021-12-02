@@ -41,7 +41,15 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
     // Appel de la récupération de l'article
     $recupArticle = thearticleSelectOneById($dbConnect, $idarticle);
 
-    var_dump($recupArticle);
+    // si on a pas récupéré d'article (idthearticle est null)
+    if (is_null($recupArticle['idthearticle'])) {
+
+        // création du message d'erreur
+        $error = "Cet article n'existe plus, cliquez dans le menu du haut de page pour voir les sections existantes,<br> ou retournez sur notre page d'<a href='./'>accueil</a>";
+
+        // Appel de la vue de l'erreur 404'
+        include_once "../view/error404View.php";
+    }
 
     // si on a cliqué sur le détail d'un utilisateur
 } elseif (isset($_GET['iduser']) && ctype_digit($_GET['iduser']) && !empty($_GET['iduser'])) {
