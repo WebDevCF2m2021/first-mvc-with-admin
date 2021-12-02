@@ -55,7 +55,7 @@
                     <hr>
 
                     <div>
-                        <h4><?= $recupUser["theuserName"] ?> a écrit : <?= count($recupArticle) ?> articles </p>
+                        <h4><?= $recupUser["theuserName"] ?> a écrit : <?= count($recupArticle) ?> article<?= count($recupArticle) < 2 ? "" : "s" ?> </p>
                         </h4>
                         <?php
                         if (empty($recupArticle)) {
