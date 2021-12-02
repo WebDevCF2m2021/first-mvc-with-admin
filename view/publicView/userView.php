@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-lg-12 mx-auto">
 
-                    <h1><?= $recupUser["theuserName"] ?></h1>
+                    <h1><?= $recupUser["theuserName"] ?> | <?= $recupUser["therightName"] ?></h1>
                     <div class="alert alert-dark" role="alert">
                         Ce site est un travail scolaire et n'est pas référencé, il est en lien avec ce référentiel
                         <a href="https://github.com/WebDevCF2m2021/first-mvc-with-admin" target="_blank">Github</a>.<br> Ce site est un exemple de MVC en PHP/MySQL procédural d'une administration à plusieurs niveaux de droits
@@ -55,7 +55,7 @@
                     <hr>
 
                     <div>
-                        <h4><?= $recupUser["theuserName"] ?></h4>
+                        <h4><?= $recupUser["theuserName"] ?> | <?= $recupUser["therightName"] ?></h4>
                         <?php
                         if (empty($recupArticle)) {
                         ?>
@@ -96,7 +96,7 @@
                                     }
                                     ?>
                                     <p><?= cuteTheText($item['thearticleText'], 200) ?> <a href="?idarticle=<?= $item['idthearticle'] ?>">Lire la suite</a></p>
-                                    <div>Ecrit par <a href="?iduser=<?= $item['idtheuser'] ?>"><?= $item['theuserName'] ?></a> le <?= frenchDate($item['thearticleDate'], 3) ?></div>
+                                    <div>Ecrit le <?= frenchDate($item['thearticleDate'], 3) ?></div>
                                     <hr>
                             <?php
                             }
