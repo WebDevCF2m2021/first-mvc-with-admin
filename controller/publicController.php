@@ -62,7 +62,17 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
 
     // conversion en integer
     $iduser = (int) $_GET['iduser'];
+
+    // à commenter
     echo "id de l'utilisateur : " . $iduser;
+
+    /*
+    EXERCICE
+
+    */
+
+
+
 
     // sinon on est sur l'accueil
 } else {
