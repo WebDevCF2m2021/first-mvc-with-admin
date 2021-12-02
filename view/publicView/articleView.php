@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Article : <?= $recupArticle["thearticleTitle"] ?></title>
+
+    <title>Article : <?= $recupArticle['thearticleTitle'] ?></title>
+  
     <link rel="stylesheet" href="css/bootstrap.css" media="screen">
     <link rel="stylesheet" href="css/custom.min.css" media="screen">
     <link rel="stylesheet" href="css/lightbox.min.css" media="screen">
@@ -46,7 +48,9 @@
             <div class="row">
                 <div class="col-lg-12 mx-auto">
 
-                    <h1><?= $recupArticle["thearticleTitle"] ?></h1>
+
+                    <h1>Article : <?= $recupArticle['thearticleTitle'] ?></h1>
+
                     <div class="alert alert-dark" role="alert">
                         Ce site est un travail scolaire et n'est pas référencé, il est en lien avec ce référentiel
                         <a href="https://github.com/WebDevCF2m2021/first-mvc-with-admin" target="_blank">Github</a>.<br> Ce site est un exemple de MVC en PHP/MySQL procédural d'une administration à plusieurs niveaux de droits
@@ -61,13 +65,14 @@
                         $titleSection = explode("|||", $recupArticle['thesectionTitle']);
                         $idSection = explode(",", $recupArticle['idthesection']);
 
+
                         // Pour mettre les résultats dans l'ordre du titre ASC, comme celà n'a pas été fait côté SQL, on peut combiner les 2 tableaux générés ci-dessus avec array_combine ($clef => $valeur)
 
                         // on veut classer ce nouveau tableau par la valeur ascendante en gardant le rapport $clef -> $valeur : voir les fonctions de tri des tableaux : https://www.php.net/manual/fr/array.sorting.php
 
                         //var_dump($titleSection, $idSection);
 
-                        // si on a au moins une section (pour éviter le bug d'affichage, array_key_first prend la première clef du tableau, si elle vaut false (dans notre cas sans section :"", donc => false) et donc pas de résultat à afficher)
+                        // si on a au moins une section (pour éviter le bug d'affichage, on vérifie si la variable de la première clef n'est pas vide)
                         if (!empty($idSection[0])) :
                         ?>
                             <div>
@@ -83,7 +88,9 @@
                         <?php
                         endif;
                         ?>
-                        <p><?= nl2br($recupArticle['thearticleText']) ?></p>
+
+                        <p><?= nl2br($recupArticle['thearticleText']) ?> </p>
+
                         <div>Ecrit par <a href="?iduser=<?= $recupArticle['idtheuser'] ?>"><?= $recupArticle['theuserName'] ?></a> le <?= frenchDate($recupArticle['thearticleDate'], 3) ?></div>
                         <hr>
                     </div>
