@@ -37,7 +37,11 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
 
     // conversion en integer
     $idarticle = (int) $_GET['idarticle'];
-    echo "id de l'article : " . $idarticle;
+
+    // Appel de la récupération de l'article
+    $recupArticle = thearticleSelectOneById($dbConnect, $idarticle);
+
+    var_dump($recupArticle);
 
     // si on a cliqué sur le détail d'un utilisateur
 } elseif (isset($_GET['iduser']) && ctype_digit($_GET['iduser']) && !empty($_GET['iduser'])) {
