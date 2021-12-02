@@ -37,15 +37,27 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
 
     // conversion en integer
     $idarticle = (int) $_GET['idarticle'];
-    echo "id de l'article : " . $idarticle;
+    $recupArticle = thearticleSelectOneById($dbConnect, $idarticle);
 
+    if (is_null($recupArticle["idthearticle"])) {
+        $error = "Cet article n'existe pas/plus. Cliquez dans le menu du haut de page pour voir les sections existantes,<br> ou retournez sur notre page d'<a href='./'>accueil</a>";
+        include_once "../view/error404View.php";
+    } else {
+        include_once "../view/publicView/articleView.php";
+    }
     // si on a cliqué sur le détail d'un utilisateur
 } elseif (isset($_GET['iduser']) && ctype_digit($_GET['iduser']) && !empty($_GET['iduser'])) {
 
     // conversion en integer
     $iduser = (int) $_GET['iduser'];
-    echo "id de l'utilisateur : " . $iduser;
-
+    $recupUser = theuserSelectOneById($dbConnect, $iduser);
+    $recupArticle = thearticleSelectAllByTheuserId($dbConnect, $iduser);
+    if (is_null($recupUser["idtheuser"])) {
+        $error = "Cet utilisateur n'existe pas/plus. Cliquez dans le menu du haut de page pour voir les sections existantes,<br> ou retournez sur notre page d'<a href='./'>accueil</a>";
+        include_once "../view/error404View.php";
+    } else {
+        include_once "../view/publicView/userView.php";
+    }
     // sinon on est sur l'accueil
 } else {
 

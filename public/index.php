@@ -12,6 +12,7 @@ require_once "../config.php";
 require_once "../model/thearticleModel.php";
 // chargement du modèle de thesection
 require_once "../model/thesectionModel.php";
+require_once "../model/theuserModel.php";
 
 // connexion à la DB
 $dbConnect = mysqli_connect(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME, DB_PORT);
@@ -23,7 +24,7 @@ Division des contrôleurs:
 Contrôleur en mode publique
 */
 
-require_once "../controller/publicController.php" ;
+require_once "../controller/publicController.php";
 
 // facultatif mais conseillé
 mysqli_close($dbConnect);
