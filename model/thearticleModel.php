@@ -24,7 +24,6 @@ ORDER BY a.thearticleDate DESC;  ";
     return mysqli_fetch_all($recup, MYSQLI_ASSOC);
 }
 
-
 // création des fonctions liées à la gestion de la table thearticle
 
 
