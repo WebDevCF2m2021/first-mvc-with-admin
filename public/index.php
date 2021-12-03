@@ -48,6 +48,8 @@ require_once "../config.php";
 require_once "../model/thearticleModel.php";
 // chargement du modèle de thesection
 require_once "../model/thesectionModel.php";
+// exercice chargement du modèle theuserModel.php
+require_once "../model/theuserModel.php";
 
 // connexion à la DB
 $dbConnect = mysqli_connect(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME, DB_PORT);

@@ -68,7 +68,7 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
 
     /*
     EXERCICE
-
+    
     */
 
 
