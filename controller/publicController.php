@@ -66,10 +66,8 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
     // à commenter
     echo "id de l'utilisateur : " . $iduser;
 
-    /*
-    EXERCICE
-
-    */
+    // appel de la vue (temporaire)
+    include_once '../view/publicView/userView.php';
 
 
 
