@@ -64,12 +64,16 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
     $iduser = (int) $_GET['iduser'];
 
     // à commenter
-    echo "id de l'utilisateur : " . $iduser;
+    // echo "id de l'utilisateur : " . $iduser;
 
-    /*
-    EXERCICE
+    // récupération de l'utilisateur avec son id
+    // on est ICI
+    $recupUser = theuserSelectOneById($dbConnect, $iduser);
 
-    */
+    var_dump($recupUser);
+
+    // appel de la vue (temporaire)
+    include_once '../view/publicView/userView.php';
 
 
 
