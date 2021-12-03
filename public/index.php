@@ -16,7 +16,7 @@ $begin = microtime(true);
 
     X création du modèle dans /model/theuserModel.php
     X appel de ce modèle dans index.php (require_once)
-    - création d'une vue dans /view/publicView/userView.php
+    X création d'une vue dans /view/publicView/userView.php
     - modification de /controller/publicController.php au niveau du commentaire " // si on a cliqué sur le détail d'un utilisateur" ligne ~=61 pour charger 2 fonctions puis la vue "/view/publicView/userView.php"
     - création d'une fonction dans /model/theuserModel.php nommée 
     
