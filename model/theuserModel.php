@@ -8,8 +8,7 @@ function theuserSelectOneById(mysqli $db, int $id): ?array
 FROM theuser u
 INNER JOIN theright r
 ON r.idtheright = u.theright_idtheright
-WHERE u.idtheuser = $id
-GROUP BY u.idtheuser;";
+WHERE u.idtheuser = $id";
 
 
     // récupération des articles, ou affichage de l'erreur SQL et arrêt
