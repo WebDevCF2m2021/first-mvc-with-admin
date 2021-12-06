@@ -2,6 +2,13 @@
 
 // création des fonctions liées à la gestion de la table thearticle
 
+/**
+ * thearticleSelectAllByTheuserId
+ *
+ * @param  mysqli $db
+ * @param  int $iduser
+ * @return array
+ */
 function thearticleSelectAllByTheuserId(mysqli $db, int $iduser): array
 {
     // requête, ici la jointure avec theuser n'est pas nécessaire (pris dans une autre requête), comme l'id de l'utilisateur se trouve déjà dans la table thearticle (thearticle_idthearticle 1->m), on peut mettre dans le WHERE : "a.theuser_idtheuser = $iduser"
@@ -19,6 +26,10 @@ FROM thearticle a
 WHERE a.thearticleStatus = 1 AND a.theuser_idtheuser = $iduser
   GROUP BY a.idthearticle
   ORDER BY a.thearticleDate DESC;  ";
+
+    $request = mysqli_query($db, $sql) or die("Erreur SQL : " . mysqli_error($db));
+
+    return mysqli_fetch_all($request, MYSQLI_ASSOC);
 }
 
 /**

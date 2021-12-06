@@ -78,6 +78,10 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
         include_once "../view/error404View.php";
     } else {
 
+        // On charge les articles de l'utilisateur (de 0 à n articles)
+        $recupArticle = thearticleSelectAllByTheuserId($dbConnect, $iduser);
+
+
         // appel de la vue (temporaire)
         include_once '../view/publicView/userView.php';
     }
