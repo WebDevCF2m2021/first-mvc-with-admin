@@ -4,17 +4,15 @@ function thearticleSelectAllByTheuserId(mysqli $db, int $id): ?array
 {
     // requête
     $sql =
-        "SELECT a.idthearticle, a.thearticleTitle, a.thearticleText, a.thearticleDate, u.idtheuser, 
+        "SELECT a.idthearticle, a.thearticleTitle, a.thearticleText, a.thearticleDate, 
         GROUP_CONCAT(s.idthesection ORDER BY s.thesectionTitle ASC) AS idthesection, 
         GROUP_CONCAT(s.thesectionTitle ORDER BY s.thesectionTitle ASC SEPARATOR '|||') AS thesectionTitle
 FROM thearticle a
-INNER JOIN theuser u
-ON a.theuser_idtheuser = u.idtheuser 
 LEFT JOIN thearticle_has_thesection h
 ON a.idthearticle = h.thearticle_idthearticle
 LEFT JOIN thesection s
 ON h.thesection_idthesection = s.idthesection
-WHERE a.thearticleStatus = 1 AND u.idtheuser = $id
+WHERE a.thearticleStatus = 1 AND a.theuser_idtheuser = $id
 GROUP BY a.idthearticle
 ORDER BY a.thearticleDate DESC;  ";
 
