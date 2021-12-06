@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 // pour compter le temps de chargement du site (alternative au hrtime)
 $begin = microtime(true);
 
-// sleep(5); // attente de 5 secondes pour tester le chargement
+// sleep(3); // attente de 3 secondes pour tester le chargement
 
 /*
  chargement des dépendances
@@ -14,14 +14,10 @@ $begin = microtime(true);
 
 // chargement de la configuration
 require_once "../config.php";
-;
-;
 // chargement du modèle thearticle (ici dans le CF car utilisé partout)
 require_once "../model/thearticleModel.php";
-
 // chargement du modèle de thesection
 require_once "../model/thesectionModel.php";
-
 // chargement du modèle de theuser
 require_once "../model/theuserModel.php";
 
