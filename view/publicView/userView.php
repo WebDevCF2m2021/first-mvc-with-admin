@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Utilisateur : <?= $thesection['thesectionTitle'] ?> </title>
+    <title>Utilisateur : <?= $recupUser['theuserLogin'] ?> </title>
     <link rel="stylesheet" href="css/bootstrap.css" media="screen">
     <link rel="stylesheet" href="css/custom.min.css" media="screen">
     <link rel="stylesheet" href="css/lightbox.min.css" media="screen">
@@ -21,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
                     <?php
-                    // var_dump($recupSection);
+
                     foreach ($recupSection as $section) :
                     ?>
                         <li class="nav-item">
@@ -46,8 +46,8 @@
             <div class="row">
                 <div class="col-lg-12 mx-auto">
 
-                    <h1>Utilisateur : <?= $thesection['thesectionTitle'] ?></h1>
-                    <p class="lead"><?= $thesection['thesectionDesc'] ?><br><br>Nombre d'articles de la section: <?= count($recupArticle) ?> </p>
+                    <h1>Utilisateur : <?= $recupUser['theuserLogin'] ?> - <?= $recupUser['theuserName'] ?></h1>
+                    <p class="lead">Cet utilisateur a la permission <strong><?= $recupUser['therightName'] ?></strong> </p>
                     <div class="alert alert-dark" role="alert">
                         Ce site est un travail scolaire et n'est pas référencé, il est en lien avec ce référentiel
                         <a href="https://github.com/WebDevCF2m2021/first-mvc-with-admin" target="_blank">Github</a>.<br> Ce site est un exemple de MVC en PHP/MySQL procédural d'une administration à plusieurs niveaux de droits
@@ -55,6 +55,7 @@
 
                     <hr>
                     <?php
+                    var_dump($recupUser);
                     // si pas d'articles (article vide)
                     if (empty($recupArticle)) :
                     ?>
