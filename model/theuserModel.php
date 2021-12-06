@@ -1,5 +1,7 @@
 <?php
-
+/*
+récupération d'un utilisateur et ses droit par son id, si on le trouve, on reçoit un tableau associatif (array) sinon ce return renvoit NULL: donc le ?array nous permets en PHP7 de récupérer OU un array ou null
+*/
 function theuserSelectOneById(mysqli $db, int $id): ?array
 {
     // on est ICI

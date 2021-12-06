@@ -58,7 +58,7 @@
                     // si pas d'articles (article vide)
                     if (empty($recupArticle)) :
                     ?>
-                        <h3>Pas encore d'articles sur le site</h3>
+                        <h3>Pas encore d'articles dans cette section</h3>
                         <?php
                     // sinon (on a au moins un article)
                     else :

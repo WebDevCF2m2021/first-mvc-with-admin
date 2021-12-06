@@ -67,15 +67,24 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
     // echo "id de l'utilisateur : " . $iduser;
 
     // récupération de l'utilisateur avec son id
-    // on est ICI
     $recupUser = theuserSelectOneById($dbConnect, $iduser);
 
-    var_dump($recupUser);
+    // si $recupUser est null
+    if (is_null($recupUser)) {
+        // création du message d'erreur
+        $error = "Cet utilisateur n'existe plus, cliquez dans le menu du haut de page pour voir les sections existantes,<br> ou retournez sur notre page d'<a href='./'>accueil</a>";
 
-    // appel de la vue (temporaire)
-    include_once '../view/publicView/userView.php';
+        // Appel de la vue de l'erreur 404'
+        include_once "../view/error404View.php";
+    } else {
+
+        // On charge les articles de l'utilisateur (de 0 à n articles)
+        $recupArticle = thearticleSelectAllByTheuserId($dbConnect, $iduser);
 
 
+        // appel de la vue (temporaire)
+        include_once '../view/publicView/userView.php';
+    }
 
 
     // sinon on est sur l'accueil
