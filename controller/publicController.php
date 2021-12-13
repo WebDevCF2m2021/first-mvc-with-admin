@@ -88,6 +88,10 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
         include_once '../view/publicView/userView.php';
     }
 
+    // si on a cliqué sur connexion
+} elseif (isset($_GET['connect'])) {
+
+    echo "test";
 
     // sinon on est sur l'accueil
 } else {
