@@ -76,7 +76,7 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
         // création du message d'erreur
         $error = "Cet utilisateur n'existe plus, cliquez dans le menu du haut de page pour voir les sections existantes,<br> ou retournez sur notre page d'<a href='./'>accueil</a>";
 
-        // Appel de la vue de l'erreur 404'
+        // Appel de la vue de l'erreur 404
         include_once "../view/error404View.php";
     } else {
 
@@ -84,14 +84,31 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
         $recupArticle = thearticleSelectAllByTheuserId($dbConnect, $iduser);
 
 
-        // appel de la vue (temporaire)
+        // appel de la vue
         include_once '../view/publicView/userView.php';
     }
 
     // si on a cliqué sur connexion
 } elseif (isset($_GET['connect'])) {
 
-    echo "test";
+    // Si on a essayé de se connecter
+    if (isset($_POST['theuserLogin']) && isset($_POST['theuserPwd'])) {
+        // protection pour l'exemple, mais peut différer par exemple le mot de passe ici ne pourrait pas contenir <? etc...
+        $login = htmlspecialchars(strip_tags(trim($_POST['theuserLogin'])), ENT_QUOTES);
+        $pwd = htmlspecialchars(strip_tags(trim($_POST['theuserPwd'])), ENT_QUOTES);
+
+        // si les variables, après traitement, ne sont pas vide
+        if (!empty($login) && !empty($pwd)) {
+
+            // ON EST ICI
+
+        } else {
+            $error = "Login et/ou mot de passe incorrectes";
+        }
+    }
+
+    // chargement de la vue de connexion
+    include_once "../view/publicView/connectView.php";
 
     // sinon on est sur l'accueil
 } else {
@@ -99,8 +116,6 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
     // pour le moment on est sur accueil
     // récupération des articles au format souhaité pour la page d'accueil
     $recupArticle = thearticleHomepageSelectAll($dbConnect);
-
-
 
 
     // chargement de la vue de homepage

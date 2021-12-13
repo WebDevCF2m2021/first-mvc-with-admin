@@ -54,7 +54,33 @@
                     </div>
 
                     <hr>
-                    <div></div>
+                    <div>
+                        <?php
+                        if (isset($error)) :
+                        ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?= $error ?>
+                            </div>
+                        <?php
+                        endif;
+                        ?>
+                        <form action="" name="connexion" method="POST">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Votre login</label>
+                                <input type="text" name="theuserLogin" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                <small id="emailHelp" class="form-text text-muted">Login incorrect</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Votre mot de passe</label>
+                                <input type="password" name="theuserPwd" class="form-control" id="exampleInputPassword1" required>
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Restez connecté</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Se connecter</button>
+                        </form>
+                    </div>
                     <hr>
                     <a href="#page-top">Retour en haut</a>
                     <hr>
