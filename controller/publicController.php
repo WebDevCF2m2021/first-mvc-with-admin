@@ -5,6 +5,7 @@ $recupSection = thesectionSelectAll($dbConnect);
 
 // si on a cliqué sur une section et que sa valeur est de type texte ne contenant QUE des numériques (ctype_digit) et pas le 0 (!empty => différent de vide)
 if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET['idsection'])) {
+
     // conversion en integer
     $idsection = (int) $_GET['idsection'];
 
@@ -41,6 +42,7 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
     // Appel de la récupération de l'article
     $recupArticle = thearticleSelectOneById($dbConnect, $idarticle);
 
+    //var_dump($recupArticle);
     // si on a pas récupéré d'article (idthearticle est null)
     if (is_null($recupArticle['idthearticle'])) {
 

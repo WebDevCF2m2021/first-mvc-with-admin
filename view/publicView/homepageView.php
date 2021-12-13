@@ -32,7 +32,7 @@
                     ?>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="?p=connect">Connexion</a>
+                        <a class="nav-link" href="?connect">Connexion</a>
                     </li>
                 </ul>
 
