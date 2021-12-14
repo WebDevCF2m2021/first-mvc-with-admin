@@ -34,8 +34,11 @@ mysqli_set_charset($dbConnect, DB_ENCODE);
 Division des contrôleurs:
 Contrôleur en mode publique
 */
-
-require_once "../controller/publicController.php";
+if (!isset($_SESSION['myID']) || $_SESSION['myID'] != session_id()) {
+    require_once "../controller/publicController.php";
+} else {
+    require_once "../controller/privateController.php";
+}
 
 // facultatif mais conseillé
 mysqli_close($dbConnect);

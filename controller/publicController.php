@@ -103,7 +103,8 @@ if (isset($_GET['idsection']) && ctype_digit($_GET['idsection']) && !empty($_GET
             // Appel de la fonction qui va vérifier si le login et le mot de passe correspondent à un utilisateur, si true est envoyé (la session a été créée dans la fonction theuserConnect(); appelée par theuserSelectOneByLogin)
             if (theuserSelectOneByLogin($dbConnect, $login, $pwd)) {
                 // redirection (rechargement du contrôleur frontal)
-                header("Location : ./");
+                header("Location: ./");
+                exit();
                 //var_dump($_SESSION);
             } else {
                 $error = "Login et/ou mot de passe incorrectes";
