@@ -15,3 +15,43 @@ function theuserSelectOneById(mysqli $db, int $id): ?array
 
     return mysqli_fetch_assoc($request);
 }
+
+
+/**
+ * theuserSelectOneByLogin
+ *
+ * @param  mysqli $db
+ * @param  string $login
+ * @param  string $pwd
+ * @return bool
+ */
+function theuserSelectOneByLogin(mysqli $db, string $login, string $pwd): bool
+{
+    $sql = "SELECT u.idtheuser, u.theuserName, u.theuserLogin,
+                   r.therightName, r.therightPerm 
+            FROM theuser u
+                INNER JOIN theright r
+                    ON u.theright_idtheright = r.idtheright
+            WHERE u.theuserLogin = '$login' AND u.theuserPwd = '$pwd';";
+    $request = mysqli_query($db, $sql) or die("Erreur SQL : " . mysqli_error($db));
+
+    // on vérifie si on a récupéré un utilisateur valide (1 == true, 0 == false)
+    if (mysqli_num_rows($request)) {
+
+        // transformation du résultat en tableau associatif
+        $result = mysqli_fetch_assoc($request);
+
+        // appel de la fonction qui crée la session (pour l'exemple vers l'OO)
+        theuserConnect($result);
+
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function theuserConnect(array $user)
+{
+    $_SESSION = $user;
+    $_SESSION['myID'] = session_id();
+}

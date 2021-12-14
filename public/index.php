@@ -1,9 +1,13 @@
 <?php
+
 // activation des erreurs si on est en mode production
 ini_set('display_errors', 1);
 
 // pour compter le temps de chargement du site (alternative au hrtime)
 $begin = microtime(true);
+
+// Lancement d'une session
+session_start();
 
 // sleep(3); // attente de 3 secondes pour tester le chargement
 
