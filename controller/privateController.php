@@ -18,11 +18,13 @@ switch ($_SESSION['therightPerm']) {
         // moderator
     case 2:
 
-        break;
         // redactor    
     case 1:
 
-        break;
         // user (0)
     default:
+        // vue par défaut si non admin (provisoire)
+        $error = "Vous n'existez pas encore ! " . $_SESSION['therightName'];
+        $recupSection = [];
+        require_once "../view/error404View.php";
 }
