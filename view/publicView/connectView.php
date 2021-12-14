@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Article : <?= $recupArticle['thearticleTitle'] ?></title>
+    <title>Connexion</title>
     <link rel="stylesheet" href="css/bootstrap.css" media="screen">
     <link rel="stylesheet" href="css/custom.min.css" media="screen">
     <link rel="stylesheet" href="css/lightbox.min.css" media="screen">
@@ -46,45 +46,41 @@
             <div class="row">
                 <div class="col-lg-12 mx-auto">
 
-                    <h1>Article : <?= $recupArticle['thearticleTitle'] ?></h1>
+                    <h1>Connexion</h1>
+                    <p class="lead">Veuillez vous connecter</p>
                     <div class="alert alert-dark" role="alert">
                         Ce site est un travail scolaire et n'est pas référencé, il est en lien avec ce référentiel
                         <a href="https://github.com/WebDevCF2m2021/first-mvc-with-admin" target="_blank">Github</a>.<br> Ce site est un exemple de MVC en PHP/MySQL procédural d'une administration à plusieurs niveaux de droits
                     </div>
 
                     <hr>
-
                     <div>
-                        <h4><?= $recupArticle['thearticleTitle'] ?></h4>
                         <?php
-                        // on va chercher à transformer la chaîne de caractère en tableau indexé, avec comme valeurs, les éléments coupés grâce à un séparateur
-                        $titleSection = explode("|||", $recupArticle['thesectionTitle']);
-                        $idSection = explode(",", $recupArticle['idthesection']);
-
-
-                        // var_dump($titleSection, $idSection);
-
-                        // si on a au moins une section (pour éviter le bug d'affichage, on vérifie si la variable de la première clef n'est pas vide)
-                        if (!empty($idSection[0])) :
+                        if (isset($error)) :
                         ?>
-                            <div>
-                                <?php
-                                // tant qu'on a des sections, on les affiches 
-                                foreach ($idSection as $clef => $valeur) :
-                                ?>
-                                    <a href="?idsection=<?= $valeur ?>"><?= $titleSection[$clef] ?></a> |
-                                <?php
-                                endforeach;
-                                ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?= $error ?>
                             </div>
                         <?php
                         endif;
                         ?>
-                        <p><?= nl2br($recupArticle['thearticleText']) ?> </p>
-                        <div>Ecrit par <a href="?iduser=<?= $recupArticle['idtheuser'] ?>"><?= $recupArticle['theuserName'] ?></a> le <?= frenchDate($recupArticle['thearticleDate'], 3) ?></div>
-                        <hr>
+                        <form action="" name="connexion" method="POST">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Votre login</label>
+                                <input type="text" name="theuserLogin" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                <small id="emailHelp" class="form-text text-muted">Login incorrect</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Votre mot de passe</label>
+                                <input type="password" name="theuserPwd" class="form-control" id="exampleInputPassword1" required>
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Restez connecté</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Se connecter</button>
+                        </form>
                     </div>
-
                     <hr>
                     <a href="#page-top">Retour en haut</a>
                     <hr>
