@@ -154,7 +154,14 @@ WHERE a.thearticleStatus = 1 AND s.idthesection = $idsection
 
     return mysqli_fetch_all($recup, MYSQLI_ASSOC);
 }
+function thearticleValidationById(mysqli $db, int $idarticle, bool $validation)
+{
+    // requête
+    $sql = "UPDATE `thearticle` SET `thearticleStatus`= " . (int) $validation . " WHERE `idthearticle` = $idarticle;";
 
+    //
+    mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+}
 /**
  * cuteTheText
  *
