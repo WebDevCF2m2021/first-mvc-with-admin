@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Administration: Accueil</title>
+    <title>Administration: Les articles</title>
     <link rel="stylesheet" href="css/bootstrap.css" media="screen">
     <link rel="stylesheet" href="css/custom.min.css" media="screen">
     <link rel="stylesheet" href="css/lightbox.min.css" media="screen">
@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-lg-12 mx-auto">
 
-                    <h1>Accueil de l'administration</h1>
+                    <h1>Administration: Les articles</h1>
                     <p class="lead">Bienvenue <?= $_SESSION['theuserName'] ?>, vous êtes connectés en tant que <?= $_SESSION['therightName'] ?></p>
                     <div class="alert alert-dark" role="alert">
                         Ce site est un travail scolaire et n'est pas référencé, il est en lien avec ce référentiel
@@ -55,40 +55,59 @@
                     <hr>
                     <div>
                         <h3>- Créer un <a href="?p=article&create">nouvel article</a></h3>
-                        <h3>- <a href="?p=article">Gestion des articles</a></h3>
-                        <h3>- <a href="?p=user">Gestion des utilisateurs</a></h3>
-                        <h3>- <a href="?p=section">Gestion des sections</a></h3>
+                        <hr>
                     </div>
-                    <div>
-                        <pre class="alert alert-dark">?p=article
-    &create
-        - choix de l'auteur
-        - choix des sections
-        - choix de l'affichage ou non
-    &update={id}
-        - choix de l'auteur
-        - choix des sections
-        - choix de l'affichage ou non
-        - choix de la date
-    &delete={id}
-        - tous les articles, mais avec confirmation
-?p=user
-    &create
-        - tout
-        - choix du droit
-    &update={id}
-        - tout
-        - choix du droit
-    &delete={id}
-        - Tous sauf lui-même
-?p=section
-    &create
-    &update={id}
-    &delete={id}
-?disconnect
-./ => homepage
-</pre>
-                    </div>
+                    <?php
+                    // si pas d'articles (article vide)
+                    if (empty($recupArticles)) :
+                    ?>
+                        <h3>Pas encore d'articles dans cette section</h3>
+                    <?php
+                    // sinon (on a au moins un article)
+                    else :
+                    ?>
+                        <h3>Nombre d'article : <?= count($recupArticles) ?></h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">idthearticle</th>
+                                    <th scope="col">thearticleTitle</th>
+                                    <th scope="col">thearticleStatus</th>
+                                    <th scope="col">thearticleText</th>
+                                    <th scope="col">thearticleDate</th>
+                                    <th scope="col">theuserName</th>
+                                    <th scope="col">thesectionTitle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($recupArticles as $article) {
+                                ?>
+                                    <tr>
+                                        <td scope="row"><?= $article["idthearticle"] ?></td>
+                                        <td><?= $article["thearticleTitle"] ?></td>
+                                        <td><?= $article["thearticleStatus"] ?></td>
+                                        <td><?= cuteTheText($article["thearticleText"], 150) ?></td>
+                                        <td><?= $article["thearticleDate"] ?></td>
+                                        <td><?= $article["theuserName"] ?></td>
+                                        <td><?php
+                                            $sections = explode('|-*-|', $article["thesectionTitle"]);
+                                            $str = "";
+                                            foreach ($sections as $section) {
+                                                $str .= " $section,";
+                                            }
+                                            echo substr($str, 0, -1);
+                                            ?></td>
+                                    </tr>
+                                <?php
+                                }
+
+                                ?>
+                            <tbody>
+                        </table>
+                    <?php
+                    endif;
+                    ?>
                     <hr>
                     <a href="#page-top">Retour en haut</a>
                     <hr>

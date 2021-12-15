@@ -1,35 +1,29 @@
 <?php
 
-// importation de la vue de l'accueil
-require_once "../view/adminView/homepageAdminView.php";
+// existence de la variable get "p"
+if (isset($_GET['p'])) {
 
-/*
-?p=homepage
-?p=article
-    &create
-        - choix de l'auteur
-        - choix des sections
-        - choix de l'affichage ou non
-    &update={id}
-        - choix de l'auteur
-        - choix des sections
-        - choix de l'affichage ou non
-        - choix de la date
-    &delete={id}
-        - tous les articles, mais avec confirmation
-?p=user
-    &create
-        - tout
-        - choix du droit
-    &update={id}
-        - tout
-        - choix du droit
-    &delete={id}
-        - Tous sauf lui-même
-?p=section
-    &create
-    &update={id}
-    &delete={id}
-?disconnect
-./ => homepage
-*/
+    // si on gère les articles
+    if ($_GET['p'] == "article") {
+
+        // si on veut créer un nouvel article
+        if (isset($_GET['create'])) {
+
+            // sinon affichage de tous les articles    
+        } else {
+
+            // appel de la fonction qui récupère tous les articles
+            $recupArticles = thearticleAdminSelectAll($dbConnect);
+            // var_dump($recupArticles);
+
+            // appel de la vue des articles
+            require_once "../view/adminView/articlesAdminView.php";
+        }
+    }
+
+    // si la variable get "p" n'existe pas    
+} else {
+
+    // importation de la vue de l'accueil
+    require_once "../view/adminView/homepageAdminView.php";
+}

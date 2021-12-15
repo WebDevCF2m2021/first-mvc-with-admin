@@ -97,10 +97,10 @@ WHERE a.thearticleStatus = 1
 function thearticleAdminSelectAll(mysqli $db): array
 {
     // requête
-    $sql = " SELECT a.idthearticle, a.thearticleTitle, LEFT(a.thearticleText,400) AS thearticleText, a.thearticleDate, a.thearticleStatus,
+    $sql = " SELECT a.idthearticle, a.thearticleTitle, LEFT(a.thearticleText,250) AS thearticleText, a.thearticleDate, a.thearticleStatus,
     u.idtheuser, u.theuserName, u.theuserLogin,	
                   GROUP_CONCAT(s.idthesection) AS idthesection, 
-                  GROUP_CONCAT(s.thesectionTitle SEPARATOR '|||') AS thesectionTitle
+                  GROUP_CONCAT(s.thesectionTitle SEPARATOR '|-*-|') AS thesectionTitle
 FROM thearticle a
   LEFT JOIN theuser u
       ON a.theuser_idtheuser = u.idtheuser 
