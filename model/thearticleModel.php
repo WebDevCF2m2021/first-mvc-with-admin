@@ -92,6 +92,31 @@ WHERE a.thearticleStatus = 1
     return mysqli_fetch_all($recup, MYSQLI_ASSOC);
 }
 
+
+// récupération de tous les articles par date DESC pour la page d'accueil, avec un texte de 250 caractères, avec auteurs et sections incluses
+function thearticleAdminSelectAll(mysqli $db): array
+{
+    // requête
+    $sql = " SELECT a.idthearticle, a.thearticleTitle, LEFT(a.thearticleText,250) AS thearticleText, a.thearticleDate, a.thearticleStatus,
+    u.idtheuser, u.theuserName, u.theuserLogin,	
+                  GROUP_CONCAT(s.idthesection) AS idthesection, 
+                  GROUP_CONCAT(s.thesectionTitle SEPARATOR '|-*-|') AS thesectionTitle
+FROM thearticle a
+  LEFT JOIN theuser u
+      ON a.theuser_idtheuser = u.idtheuser 
+  LEFT JOIN thearticle_has_thesection h
+      ON a.idthearticle = h.thearticle_idthearticle
+  LEFT JOIN thesection s
+      ON h.thesection_idthesection = s.idthesection
+  GROUP BY a.idthearticle
+  ORDER BY a.thearticleDate DESC;  ";
+
+    // récupération des articles, ou affichage de l'erreur SQL et arrêt
+    $recup = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+
+    return mysqli_fetch_all($recup, MYSQLI_ASSOC);
+}
+
 // récupération de tous les articles par date DESC pour la page section (tant qu'ils ont un auteur et sont publiés), avec un texte de 250 caractères, avec auteurs et sections incluses SI l'article se trouve dans la section
 function thearticleSectionSelectAll(mysqli $db, int $idsection): array
 {
