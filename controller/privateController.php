@@ -3,7 +3,9 @@
 
 // si on a cliqué sur déconnexion, ou que la session n'est plus valide, on force la déconnexion
 if (isset($_GET['disconnect']) || $_SESSION['myID'] != session_id()) {
+    // déconnexion
     theuserDisconnect();
+    // redirection
     header("Location: ./");
     exit();
 }
