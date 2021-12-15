@@ -77,13 +77,16 @@
                                     <th scope="col">thearticleDate</th>
                                     <th scope="col">theuserName</th>
                                     <th scope="col">thesectionTitle</th>
+                                    <th scope="col">Modifier</th>
+                                    <th scope="col">Supprimer</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 foreach ($recupArticles as $article) {
+                                    $TD = ($article["thearticleStatus"] == 1) ? "" : " class='alert alert-secondary' "
                                 ?>
-                                    <tr>
+                                    <tr <?= $TD ?>>
                                         <td scope="row"><?= $article["idthearticle"] ?></td>
                                         <td><?= $article["thearticleTitle"] ?></td>
                                         <td><?= $article["thearticleStatus"] ?></td>
@@ -98,6 +101,8 @@
                                             }
                                             echo substr($str, 0, -1);
                                             ?></td>
+                                        <td><a href="?p=article&update=<?= $article["idthearticle"] ?>"><img src="img/update.png" alt="update" /></a></td>
+                                        <td><a href="?p=article&delete=<?= $article["idthearticle"] ?>"><img src="img/delete.png" alt="delete" /></a></td>
                                     </tr>
                                 <?php
                                 }
