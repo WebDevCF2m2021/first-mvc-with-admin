@@ -20,7 +20,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="?p=article">Gestion des articles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?p=user">Gestion des utilisateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?p=section">Gestion des sections</a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="?disconnect">Déconnexion</a>
@@ -45,7 +53,12 @@
                     </div>
 
                     <hr>
-
+                    <div>
+                        <h3>- Créer un <a href="?p=article&create">nouvel article</a></h3>
+                        <h3>- <a href="?p=article">Gestion des articles</a></h3>
+                        <h3>- <a href="?p=user">Gestion des utilisateurs</a></h3>
+                        <h3>- <a href="?p=section">Gestion des sections</a></h3>
+                    </div>
 
                     <hr>
                     <a href="#page-top">Retour en haut</a>
