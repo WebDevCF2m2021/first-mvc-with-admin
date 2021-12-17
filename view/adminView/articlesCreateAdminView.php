@@ -65,12 +65,12 @@
                         ?>
                         <form action="" name="connexion" method="POST">
                             <div class="form-group">
-                                <label>Titre</label>
+                                <label>Titre : </label>
                                 <input type="text" name="thearticleTitle" maxlength="180" class="form-control" required>
                             </div>
 
                             <div class="form-group">
-                                <label>Visibilité</label>
+                                <label>Visibilité : </label><br>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="thearticleStatus" id="inlineRadio1" value="0">
                                     <label class="form-check-label" for="inlineRadio1">0 => wait validation</label>
@@ -89,8 +89,38 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Texte de l'article</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                                <label for="exampleFormControlTextarea1">Texte de l'article : </label>
+                                <textarea name="thearticleText" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Auteur : </label>
+                                <select name="theuser_idtheuser" class="form-control" id="exampleFormControlSelect1">
+                                    <?php
+                                    // tant qu'on a des auteurs
+                                    foreach ($authors as $item) :
+                                        // on sélectionne l'administrateur connecté par défaut
+                                        $selected = ($item['idtheuser'] == $_SESSION['idtheuser'])
+                                            ? "selected"
+                                            : "";
+                                    ?>
+                                        <option value="<?= $item['idtheuser'] ?>" <?= $selected ?>><?= $item['theuserName'] ?></option>
+                                    <?php
+                                    endforeach;
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Rubriques : </label><br>
+                                <?php
+                                foreach ($sections as $item) :
+                                ?>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox<?= $item['idthesection'] ?>" name="idthesection[]" value="<?= $item['idthesection'] ?>">
+                                        <label class="form-check-label" for="inlineCheckbox<?= $item['idthesection'] ?>"><?= $item['thesectionTitle'] ?></label>
+                                    </div>
+                                <?php
+                                endforeach;
+                                ?>
                             </div>
 
 
