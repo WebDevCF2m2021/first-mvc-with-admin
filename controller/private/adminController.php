@@ -9,6 +9,11 @@ if (isset($_GET['p'])) {
         // si on veut créer un nouvel article
         if (isset($_GET['create'])) {
 
+
+
+            // chargement de la vue
+            require_once "../view/adminView/articlesCreateAdminView.php";
+
             // sinon affichage de tous les articles    
         } else {
 
