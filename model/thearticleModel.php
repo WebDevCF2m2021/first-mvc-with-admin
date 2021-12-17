@@ -66,6 +66,36 @@ function thearticleSelectOneById(mysqli $db, int $idarticle): array
     return mysqli_fetch_assoc($recup);
 }
 
+/*
+Insertion d'un article avec son auteur et ses section
+*/
+function thearticleInsertWithUserAndSection(mysqli $db, string $title, string $text, int $status, int $iduser, array $idsection)
+{
+    // insertion d'article
+    $sql = "INSERT INTO thearticle (`thearticleTitle`,`thearticleText`,`thearticleStatus`,`theuser_idtheuser`) VALUES ('$title','$text',$status,$iduser);";
+
+    $request = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+
+    // insertion ok
+    if ($request && !empty($idsection)) {
+        // récupération du dernier inséré par cette connexion (nous donc)
+        $idarticle = mysqli_insert_id($db);
+
+        // $sql pour la jointure entre article et section
+        $sql = "INSERT INTO `thearticle_has_thesection` (`thearticle_idthearticle`,`thesection_idthesection`) values ";
+
+        // tant qu'on a des sections (au moins une)
+        foreach ($idsection as $item) {
+            $item = (int) $item;
+            $sql .= "($idarticle,'$item'),";
+        }
+        $sqlok = substr($sql, 0, -1);
+        $insert_join = mysqli_query($db, $sqlok)  or die("Erreur SQL :" . mysqli_error($db));
+
+        return $insert_join;
+    }
+    return true;
+}
 
 // récupération de tous les articles par date DESC pour la page d'accueil (tant qu'ils ont un auteur et sont publiés), avec un texte de 250 caractères, avec auteurs et sections incluses
 function thearticleHomepageSelectAll(mysqli $db): array

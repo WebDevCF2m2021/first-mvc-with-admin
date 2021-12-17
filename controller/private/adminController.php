@@ -14,12 +14,21 @@ if (isset($_GET['p'])) {
 
                 // protection des variables POST et tranformation en variables locales
                 $titre = htmlspecialchars(strip_tags(trim($_POST['thearticleTitle'])), ENT_QUOTES);
-                $texte = htmlspecialchars(strip_tags(trim($_POST['thearticleText']), "<h3><h4><h5><h6><br><p><a><img>"), ENT_QUOTES);
+                // A permettre plus tard, ne pas oublier les html_entity_decode, et les strip_tags dans les versions raccourcies (250 caractères etc...)
+                // $texte = htmlspecialchars(strip_tags(trim($_POST['thearticleText']), "<h3><h4><h5><h6><br><p><a><img>"), ENT_QUOTES);
+                $texte = htmlspecialchars(strip_tags(trim($_POST['thearticleText'])), ENT_QUOTES);
                 $status = (int) $_POST['thearticleStatus'];
                 $iduser = (int) $_POST['theuser_idtheuser'];
                 $sections = (isset($_POST['idthesection']) && is_array($_POST['idthesection']))
                     ?   $_POST['idthesection']
                     : [];
+
+                /*
+ON EST ICI
+
+                    */
+
+                thearticleInsertWithUserAndSection($dbConnect, $titre, $texte, $status, $iduser, $sections);
             }
 
             // chargement de tous les auteurs disponibles
