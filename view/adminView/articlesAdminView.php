@@ -92,6 +92,8 @@
                                         <td>
                                             <form method="POST" action="">
                                                 <?php
+                                                // gestion de l'affichage ou non du site en one click
+                                                // si visible on peut rendre invisible
                                                 if ($article["thearticleStatus"] == 1) {
                                                 ?>
                                                     <input type="hidden" name="unvalid" value="<?= $article["idthearticle"] ?>" />
@@ -103,6 +105,7 @@
                                                         <span class="visually-hidden">Displayed</span>
                                                     </button>
                                                 <?php
+                                                    // sinon invisible on peut rendre visible
                                                 } else {
                                                 ?>
                                                     <input type="hidden" name="valid" value="<?= $article["idthearticle"] ?>" />

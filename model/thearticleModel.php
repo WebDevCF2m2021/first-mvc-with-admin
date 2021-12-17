@@ -154,14 +154,16 @@ WHERE a.thearticleStatus = 1 AND s.idthesection = $idsection
 
     return mysqli_fetch_all($recup, MYSQLI_ASSOC);
 }
+
+// changement de visibilité d'article pour la gestion de ceux-ci sur l'administration de ?p=article en one click
 function thearticleValidationById(mysqli $db, int $idarticle, bool $validation)
 {
     // requête
     $sql = "UPDATE `thearticle` SET `thearticleStatus`= " . (int) $validation . " WHERE `idthearticle` = $idarticle;";
 
-    //
     mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
 }
+
 /**
  * cuteTheText
  *
