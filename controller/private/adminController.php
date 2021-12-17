@@ -9,7 +9,13 @@ if (isset($_GET['p'])) {
         // si on veut créer un nouvel article
         if (isset($_GET['create'])) {
 
+            // chargement de tous les auteurs disponibles
+            $authors = theuserSelectAll($dbConnect);
 
+            // chargement de toutes les sections
+            $sections = thesectionSelectAll($dbConnect);
+
+            var_dump($_POST);
 
             // chargement de la vue
             require_once "../view/adminView/articlesCreateAdminView.php";
