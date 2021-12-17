@@ -35,8 +35,10 @@ Division des contrôleurs:
 Contrôleur en mode publique
 */
 if (!isset($_SESSION['myID']) || $_SESSION['myID'] != session_id()) {
+    // non connecté, appel du contrôleur publique
     require_once "../controller/publicController.php";
 } else {
+    // connecté, appel du contrôleur privé
     require_once "../controller/privateController.php";
 }
 
