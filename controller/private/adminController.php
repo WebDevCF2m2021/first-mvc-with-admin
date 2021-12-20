@@ -6,7 +6,7 @@ if (isset($_GET['p'])) {
     // si on gère les articles
     if ($_GET['p'] == "article") {
 
-        // si on veut créer un nouvel article
+        // si on veut créer un nouvel article (Crud)
         if (isset($_GET['create'])) {
 
             // si on poste le formulaire
@@ -46,11 +46,33 @@ if (isset($_GET['p'])) {
             // chargement de la vue
             require_once "../view/adminView/articlesCreateAdminView.php";
 
-            // sinon affichage de tous les articles    
+            // si on veut modifier un article (crUd), et qu'on passe un id valide (string ne contenant que des numériques dont le 0) et on accèpte pas une variable vide (0==vide)
+        } elseif (isset($_GET['update']) && ctype_digit($_GET['update']) && !empty($_GET['update'])) {
+
+            // transtypage de string à int
+            $idarticle = (int) $_GET['update'];
+
+            // chargement de l'article grâce à son id
+
+            // chargement de tous les auteurs disponibles
+            $authors = theuserSelectAll($dbConnect);
+
+            // chargement de toutes les sections
+            $sections = thesectionSelectAll($dbConnect);
+
+            // chargement de la vue
+
+            //var_dump($_GET['update']);
+            // si on veut supprimer un article (cruD)
+        } elseif (isset($_GET['delete'])) {
+
+            // sinon affichage de tous les articles (cRud)   
         } else {
 
             // appel de la fonction qui récupère tous les articles
             $recupArticles = thearticleAdminSelectAll($dbConnect);
+
+            // Pour valider ou invalider l'affichage d'un article en 1 clic
             if (isset($_POST["valid"])) {
                 $id = (int) $_POST["valid"];
                 $validation = true;
