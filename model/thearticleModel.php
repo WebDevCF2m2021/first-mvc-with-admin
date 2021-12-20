@@ -65,7 +65,27 @@ function thearticleSelectOneById(mysqli $db, int $idarticle): array
 
     return mysqli_fetch_assoc($recup);
 }
+function thearticleAdminSelectOneById(mysqli $db, int $idarticle): array
+{
+    // requête de sélection d'un article par son id, avec ses rubriques classées par ordre alphabétique (! dans le GROUP_CONCAT, il faut les même ORDER BY pour les colonnes venant de la même table!). Comme on ne peut avoir qu'un (ou 0) résultat, le GROUP BY est inutile
+    $sql = " SELECT a.idthearticle, a.thearticleTitle, a.thearticleText, a.thearticleDate, a.thearticleStatus,
+                    u.idtheuser, u.theuserName,
+                    GROUP_CONCAT(s.idthesection ORDER BY s.thesectionTitle ASC) AS idthesection, 
+                    GROUP_CONCAT(s.thesectionTitle ORDER BY s.thesectionTitle ASC SEPARATOR '|||') AS thesectionTitle
+             FROM thearticle a
+                LEFT JOIN theuser u
+                ON a.theuser_idtheuser = u.idtheuser 
+            LEFT JOIN thearticle_has_thesection h
+                ON a.idthearticle = h.thearticle_idthearticle
+            LEFT JOIN thesection s
+                ON h.thesection_idthesection = s.idthesection
+            WHERE a.idthearticle = $idarticle;";
 
+    // récupération d'un article (ou d'aucun), ou affichage de l'erreur SQL et arrêt
+    $recup = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+
+    return mysqli_fetch_assoc($recup);
+}
 /*
 Insertion d'un article avec son auteur et ses section
 */

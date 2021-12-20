@@ -22,13 +22,12 @@ if (isset($_GET['p'])) {
                 $sections = (isset($_POST['idthesection']) && is_array($_POST['idthesection']))
                     ?   $_POST['idthesection']
                     : [];
+                $insert = thearticleInsertWithUserAndSection($dbConnect, $titre, $texte, $status, $iduser, $sections);
 
-                /*
-ON EST ICI
-
-                    */
-
-                thearticleInsertWithUserAndSection($dbConnect, $titre, $texte, $status, $iduser, $sections);
+                if ($insert) {
+                    header("Location: ./?p=article");
+                    exit;
+                }
             }
 
             // chargement de tous les auteurs disponibles
@@ -42,6 +41,22 @@ ON EST ICI
             require_once "../view/adminView/articlesCreateAdminView.php";
 
             // sinon affichage de tous les articles    
+        } elseif (isset($_GET['update']) && ctype_digit($_GET["update"]) && !empty($_GET["update"])) {
+
+            $idArticle = (int) $_GET["update"];
+
+            $article =  thearticleAdminSelectOneById($dbConnect, $idArticle);
+            $sections = thesectionSelectAll($dbConnect);
+
+            if (!empty($article["idthearticle"])) {
+
+                $authors = theuserSelectAll($dbConnect);
+
+                require_once "../view/adminView/articlesUpdateAdminView.php";
+            } else {
+                header("Location: ./?p=article");
+            }
+        } elseif (isset($_GET['delete']) && ctype_digit($_GET["delete"]) && !empty($_GET["delete"])) {
         } else {
 
             // appel de la fonction qui récupère tous les articles
