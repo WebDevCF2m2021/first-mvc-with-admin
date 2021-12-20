@@ -24,6 +24,8 @@ if (isset($_GET['p'])) {
                     ?   $_POST['idthesection']
                     // sinon on lui passe un tableau vide
                     : [];
+                $insert = thearticleInsertWithUserAndSection($dbConnect, $titre, $texte, $status, $iduser, $sections);
+
 
                 // insertion de l'article et de ses rubriques (si existantes) dans la base de donnée
                 $insert = thearticleInsertWithUserAndSection($dbConnect, $titre, $texte, $status, $iduser, $sections);
@@ -46,28 +48,32 @@ if (isset($_GET['p'])) {
             // chargement de la vue
             require_once "../view/adminView/articlesCreateAdminView.php";
 
-            // si on veut modifier un article (crUd), et qu'on passe un id valide (string ne contenant que des numériques dont le 0) et on accèpte pas une variable vide (0==vide)
-        } elseif (isset($_GET['update']) && ctype_digit($_GET['update']) && !empty($_GET['update'])) {
+
+            // sinon affichage de tous les articles    
+        } elseif (isset($_GET['update']) && ctype_digit($_GET["update"]) && !empty($_GET["update"])) {
 
             // transtypage de string à int
-            $idarticle = (int) $_GET['update'];
+            $idArticle = (int) $_GET["update"];
 
             // chargement de l'article grâce à son id
-            var_dump(thearticleAdminSelectOneById($dbConnect, $idarticle));
+            $article =  thearticleAdminSelectOneById($dbConnect, $idArticle);
 
-            // chargement de tous les auteurs disponibles
-            $authors = theuserSelectAll($dbConnect);
 
-            // chargement de toutes les sections
-            $sections = thesectionSelectAll($dbConnect);
+            if (!empty($article["idthearticle"])) {
 
-            // chargement de la vue
+                // chargement de tous les auteurs disponibles
+                $authors = theuserSelectAll($dbConnect);
 
-            //var_dump($_GET['update']);
-            // si on veut supprimer un article (cruD)
-        } elseif (isset($_GET['delete'])) {
+                // chargement de toutes les sections
+                $sections = thesectionSelectAll($dbConnect);
 
-            // sinon affichage de tous les articles (cRud)   
+                // chargement de la vue
+                require_once "../view/adminView/articlesUpdateAdminView.php";
+            } else {
+                header("Location: ./?p=article");
+                exit;
+            }
+        } elseif (isset($_GET['delete']) && ctype_digit($_GET["delete"]) && !empty($_GET["delete"])) {
         } else {
 
             // appel de la fonction qui récupère tous les articles
