@@ -69,7 +69,18 @@ function thearticleSelectOneById(mysqli $db, int $idarticle): array
 /*
 Insertion d'un article avec son auteur et ses section
 */
-function thearticleInsertWithUserAndSection(mysqli $db, string $title, string $text, int $status, int $iduser, array $idsection)
+/**
+ * thearticleInsertWithUserAndSection
+ *
+ * @param  mysqli $db
+ * @param  string $title
+ * @param  string $text
+ * @param  int $status
+ * @param  int $iduser
+ * @param  array $idsection
+ * @return bool
+ */
+function thearticleInsertWithUserAndSection(mysqli $db, string $title, string $text, int $status, int $iduser, array $idsection): bool
 {
     // insertion d'article
     $sql = "INSERT INTO thearticle (`thearticleTitle`,`thearticleText`,`thearticleStatus`,`theuser_idtheuser`) VALUES ('$title','$text',$status,$iduser);";
