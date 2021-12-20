@@ -128,7 +128,7 @@
                             </div>
 
 
-                            <button type="submit" class="btn btn-primary">Insérer l'article</button>
+                            <button type="submit" class="btn btn-primary">Modifier l'article</button>
                         </form>
                     </div>
                     <hr>
