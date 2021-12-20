@@ -66,10 +66,12 @@
                         <form action="" name="connexion" method="POST">
                             <div class="form-group">
                                 <label>Titre : </label>
+                                <!-- la valeur du champ (input) est égale à ce qu'on récupère de la variable $article que l'on récupère dans l'adminController ici pour la valeur thearticleTitle-->
                                 <input type="text" name="thearticleTitle" maxlength="180" class="form-control" value="<?= $article["thearticleTitle"] ?>" required>
                             </div>
 
                             <div class="form-group">
+                                <!-- On vérfie le status sur chaque inputs via la variable $article à l'id thearticleStatus. Si l'une est vrai, on attribue à l'input l'attribut checked qui cochera le bouton-->
                                 <label>Visibilité : </label><br>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="thearticleStatus" id="inlineRadio1" value="0" <?= $article["thearticleStatus"] == 0 ? "checked" : "" ?>>
@@ -90,6 +92,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Texte de l'article : </label>
+                                <!-- la valeur du champ (textarea) est égale à ce qu'on récupère de la variable $article que l'on récupère dans l'adminController ici pour la valeur thearticleText-->
                                 <textarea name="thearticleText" class="form-control" id="exampleFormControlTextarea1" rows="5"><?= $article["thearticleText"] ?></textarea>
                             </div>
                             <div class="form-group">
@@ -98,7 +101,7 @@
                                     <?php
                                     // tant qu'on a des auteurs
                                     foreach ($authors as $item) :
-                                        // on sélectionne l'administrateur connecté par défaut
+                                        // on sélectionne la personne ayant écrit l'article au préalable en vérifiant l'id de l'utilisateur qui a écrit l'article avec l'idtheuser de la variable $article que l'on crée dans l'adminController
                                         $selected = ($item['idtheuser'] == $article['idtheuser'])
                                             ? "selected"
                                             : "";
@@ -114,6 +117,7 @@
                                 <?php
                                 foreach ($sections as $item) :
                                 ?>
+                                    <!-- On vérfie les sections sur chaque inputs via la variable $article à l'id idthesction. Ici on vérifie dans un tableau créé à la volée à chaque boucle (vu qu'on boucle sur chaque sections) avec l'explode de la chaine de caractère qu'on récupère de la variable $article à l'id idthesection. Si l'id de la section est bien dans le tableau créé à la volée, alors on aloue l'attribut "checked" à l'input-->
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" id="inlineCheckbox<?= $item['idthesection'] ?>" name="idthesection[]" value="<?= $item['idthesection'] ?>" <?= in_array($item['idthesection'], explode(",", $article["idthesection"])) ? "checked" : "" ?>>
                                         <label class="form-check-label" for="inlineCheckbox<?= $item['idthesection'] ?>"><?= $item['thesectionTitle'] ?></label>
