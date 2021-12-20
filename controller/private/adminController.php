@@ -46,12 +46,12 @@ if (isset($_GET['p'])) {
             $idArticle = (int) $_GET["update"];
 
             $article =  thearticleAdminSelectOneById($dbConnect, $idArticle);
-            $sections = thesectionSelectAll($dbConnect);
+
 
             if (!empty($article["idthearticle"])) {
 
                 $authors = theuserSelectAll($dbConnect);
-
+                $sections = thesectionSelectAll($dbConnect);
                 require_once "../view/adminView/articlesUpdateAdminView.php";
             } else {
                 header("Location: ./?p=article");
