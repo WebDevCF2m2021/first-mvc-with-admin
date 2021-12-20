@@ -19,16 +19,21 @@ if (isset($_GET['p'])) {
                 $texte = htmlspecialchars(strip_tags(trim($_POST['thearticleText'])), ENT_QUOTES);
                 $status = (int) $_POST['thearticleStatus'];
                 $iduser = (int) $_POST['theuser_idtheuser'];
+                // si on a au moins une section il sera au format tableau indexé
                 $sections = (isset($_POST['idthesection']) && is_array($_POST['idthesection']))
                     ?   $_POST['idthesection']
+                    // sinon on lui passe un tableau vide
                     : [];
 
-                /*
-ON EST ICI
+                // insertion de l'article et de ses rubriques (si existantes) dans la base de donnée
+                $insert = thearticleInsertWithUserAndSection($dbConnect, $titre, $texte, $status, $iduser, $sections);
 
-                    */
-
-                thearticleInsertWithUserAndSection($dbConnect, $titre, $texte, $status, $iduser, $sections);
+                // si l'insertion est effectuée
+                if ($insert) {
+                    // redirection vers la gestion d'articles
+                    header("location: ./?p=article");
+                    die;
+                }
             }
 
             // chargement de tous les auteurs disponibles
