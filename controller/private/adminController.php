@@ -53,6 +53,7 @@ if (isset($_GET['p'])) {
             $idarticle = (int) $_GET['update'];
 
             // chargement de l'article grâce à son id
+            var_dump(thearticleAdminSelectOneById($dbConnect, $idarticle));
 
             // chargement de tous les auteurs disponibles
             $authors = theuserSelectAll($dbConnect);
