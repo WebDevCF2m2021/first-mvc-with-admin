@@ -239,6 +239,24 @@ function thearticleValidationById(mysqli $db, int $idarticle, bool $validation)
     mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
 }
 
+/*
+
+
+
+ON EST ICI
+
+
+*/
+
+function thearticleAdminUpdateById(mysqli $db, array $datas): bool
+{
+
+    $sql = "UPDATE `thearticle` SET `thearticleStatus`= " . $datas['thearticleStatus'] . " WHERE `idthearticle` = $datas[idthearticle];";
+
+    mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+    return true;
+}
+
 /**
  * cuteTheText
  *

@@ -55,6 +55,20 @@ if (isset($_GET['p'])) {
             // transtypage de string à int
             $idArticle = (int) $_GET["update"];
 
+            // le formulaire a été envoyé (champs caché avec l'id de l'article) et est l'équivalent de celui passé en get (protection de base)
+            if (isset($_POST['idthearticle']) && $_POST['idthearticle'] == $idArticle) {
+                /*
+
+
+
+ON EST ICI
+
+
+*/
+
+                thearticleAdminUpdateById($dbConnect, $_POST);
+            }
+
             // chargement de l'article grâce à son id
             $article =  thearticleAdminSelectOneById($dbConnect, $idArticle);
 

@@ -126,7 +126,7 @@
                                 endforeach;
                                 ?>
                             </div>
-
+                            <input type="hidden" name="idthearticle" value="<?= $article['idthearticle'] ?>" />
 
                             <button type="submit" class="btn btn-primary">Modifier l'article</button>
                         </form>
