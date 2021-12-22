@@ -100,6 +100,12 @@ function thearticleAdminSelectOneById(mysqli $db, int $idarticle): array
     return mysqli_fetch_assoc($recup);
 }
 
+function thearticleAdminDeleteById(mysqli $db, int $idarticle): bool
+{
+    $sql = "DELETE FROM thearticle WHERE idthearticle = $idarticle";
+    return mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+}
+
 /**
  * thearticleAdminSelectOneByIdForDelete
  *
