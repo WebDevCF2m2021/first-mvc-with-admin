@@ -86,7 +86,29 @@ if (isset($_GET['p'])) {
                 header("Location: ./?p=article");
                 exit;
             }
+
+            // on veut supprimer un article    
         } elseif (isset($_GET['delete']) && ctype_digit($_GET["delete"]) && !empty($_GET["delete"])) {
+
+            $idarticle = ($_GET["delete"]);
+
+            // si on a cliqué sur "confirmation"
+            if (isset($_GET['confirm'])) {
+            }
+
+            // récupération de l'article par son id
+            $article = thearticleAdminSelectOneByIdForDelete($dbConnect, $idarticle);
+
+            // pas d'articles
+            if (is_null($article)) {
+                $error = "Article inexistant";
+                $recupSection = [];
+                require_once "../view/error404View.php";
+                die();
+            }
+
+            // chargement de la vue
+            require_once "../view/adminView/articlesDeleteAdminView.php";
         } else {
 
             // appel de la fonction qui récupère tous les articles

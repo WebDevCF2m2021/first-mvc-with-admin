@@ -100,6 +100,28 @@ function thearticleAdminSelectOneById(mysqli $db, int $idarticle): array
     return mysqli_fetch_assoc($recup);
 }
 
+/**
+ * thearticleAdminSelectOneByIdForDelete
+ *
+ * Sélection minimale pour approuver la suppression d'un article (Admin uniquement)
+ * 
+ * @param  mysqli $db
+ * @param  int $idarticle
+ * @return array|NULL
+ */
+function thearticleAdminSelectOneByIdForDelete(mysqli $db, int $idarticle): ?array
+{
+    // requête de sélection d'un article par son id avec les champs minimaux
+    $sql = " SELECT idthearticle, thearticleTitle, thearticleText, thearticleDate
+             FROM thearticle 
+                WHERE idthearticle = $idarticle;";
+
+    // récupération d'un article (ou d'aucun), ou affichage de l'erreur SQL et arrêt
+    $recup = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+
+    return mysqli_fetch_assoc($recup);
+}
+
 /*
 Insertion d'un article avec son auteur et ses section
 */
