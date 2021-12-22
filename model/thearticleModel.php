@@ -267,6 +267,20 @@ function thearticleAdminUpdateById(mysqli $db, array $datas): bool
 
     mysqli_stmt_execute($sqlPrepare) or die("Erreur SQL :" . mysqli_error($db));
 
+    // quoi qu'il arrive, on doit supprimer le lien (m2m) vers les anciennes sections de la base de données liées avec l'article actuel (on a par exemple décoché toutes les sections de l'article)
+    $sql = "DELETE FROM `thearticle_has_thesection` WHERE `thearticle_idthearticle` = ?";
+    $sqlPrepare2 = mysqli_prepare($db, $sql);
+    mysqli_stmt_bind_param($sqlPrepare2, "i", $datas['idthearticle']);
+
+    mysqli_stmt_execute($sqlPrepare2) or die("Erreur SQL :" . mysqli_error($db));
+
+    // Si on a coché une section (au moins)
+    if (isset($datas['idthesection']) && is_array($datas['idthesection'])) {
+
+        // début de la requête préparée
+        $sql = "INSERT INTO thearticle_has_thesection (`thearticle_idthearticle`,`thesection_idthesection`) VALUES ";
+    }
+
     return true;
 }
 
