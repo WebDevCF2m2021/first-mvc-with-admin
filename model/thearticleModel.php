@@ -277,8 +277,16 @@ function thearticleAdminUpdateById(mysqli $db, array $datas): bool
     // Si on a coché une section (au moins)
     if (isset($datas['idthesection']) && is_array($datas['idthesection'])) {
 
+        // transformation de notre id en integer
+        $idarticle = (int) $datas['idthearticle'];
         // début de la requête préparée
         $sql = "INSERT INTO thearticle_has_thesection (`thearticle_idthearticle`,`thesection_idthesection`) VALUES ";
+        foreach ($datas['idthesection'] as $value) {
+            $idsection = (int) $value;
+            $sql .= "($idarticle, $idsection),";
+        }
+        $sql = substr($sql, 0, -1);
+        mysqli_query($db, $sql)  or die("Erreur SQL :" . mysqli_error($db));
     }
 
     return true;
