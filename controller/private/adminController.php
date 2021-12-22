@@ -57,16 +57,15 @@ if (isset($_GET['p'])) {
 
             // le formulaire a été envoyé (champs caché avec l'id de l'article) et est l'équivalent de celui passé en get (protection de base)
             if (isset($_POST['idthearticle']) && $_POST['idthearticle'] == $idArticle) {
-                /*
 
+                //var_dump($_POST);
 
-
-ON EST ICI
-
-
-*/
-
-                thearticleAdminUpdateById($dbConnect, $_POST);
+                // si modification ok
+                if (thearticleAdminUpdateById($dbConnect, $_POST)) {
+                    // redirection
+                    header("Location: ./?p=article");
+                    exit;
+                }
             }
 
             // chargement de l'article grâce à son id

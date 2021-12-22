@@ -239,21 +239,34 @@ function thearticleValidationById(mysqli $db, int $idarticle, bool $validation)
     mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
 }
 
-/*
 
-
-
-ON EST ICI
-
-
-*/
-
+/**
+ * thearticleAdminUpdateById
+ *
+ * En va faire une requête préparée en mysqli procédurale (rare en procédural, très fréquent en OO - Orienté objet) pour éviter toutes injection SQL, mais sans vérifier de manière stricte les valeurs
+ * 
+ * @param  mysqli $db
+ * @param  array $datas
+ * @return bool
+ */
 function thearticleAdminUpdateById(mysqli $db, array $datas): bool
 {
 
-    $sql = "UPDATE `thearticle` SET `thearticleStatus`= " . $datas['thearticleStatus'] . " WHERE `idthearticle` = $datas[idthearticle];";
 
-    mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+    // Requête préparée, elle empèche les injections SQL, mais n'est généralement pas suffisante pour éviter les bugs et/ou manipulations non désirées d'utilisateurs malveillants. Cependant il ya a une règle de base:
+    // Toute requête avec ne serait-ce qu'une entrée utilisateur DOIT toujours être une requête préparée
+    $sqlPrepare = mysqli_prepare($db, "UPDATE `thearticle` SET  
+    `thearticleTitle`=?,
+    `thearticleStatus`= ?,
+    `thearticleText`=?, 
+    `theuser_idtheuser`=?
+
+     WHERE `idthearticle` = ?;");
+
+    mysqli_stmt_bind_param($sqlPrepare, "sisii", $datas['thearticleTitle'], $datas['thearticleStatus'], $datas['thearticleText'], $datas['theuser_idtheuser'], $datas['idthearticle']);
+
+    mysqli_stmt_execute($sqlPrepare) or die("Erreur SQL :" . mysqli_error($db));
+
     return true;
 }
 
