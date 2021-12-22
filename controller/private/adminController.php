@@ -24,7 +24,7 @@ if (isset($_GET['p'])) {
                     ?   $_POST['idthesection']
                     // sinon on lui passe un tableau vide
                     : [];
-                $insert = thearticleInsertWithUserAndSection($dbConnect, $titre, $texte, $status, $iduser, $sections);
+
 
 
                 // insertion de l'article et de ses rubriques (si existantes) dans la base de donnée
@@ -57,11 +57,15 @@ if (isset($_GET['p'])) {
 
             // le formulaire a été envoyé (champs caché avec l'id de l'article) et est l'équivalent de celui passé en get (protection de base)
             if (isset($_POST['idthearticle']) && $_POST['idthearticle'] == $idArticle) {
-                /*
-ON EST ICI
-*/
 
-                thearticleAdminUpdateById($dbConnect, $_POST);
+                //var_dump($_POST);
+
+                // si modification ok
+                if (thearticleAdminUpdateById($dbConnect, $_POST)) {
+                    // redirection
+                    header("Location: ./?p=article");
+                    exit;
+                }
             }
 
             // chargement de l'article grâce à son id
@@ -82,7 +86,32 @@ ON EST ICI
                 header("Location: ./?p=article");
                 exit;
             }
+
+            // on veut supprimer un article    
         } elseif (isset($_GET['delete']) && ctype_digit($_GET["delete"]) && !empty($_GET["delete"])) {
+
+            $idarticle = ($_GET["delete"]);
+
+            // si on a cliqué sur "confirmation"
+            if (isset($_GET['confirm'])) {
+                if (thearticleAdminDeleteById($dbConnect, $idarticle)) {
+                    header("Location: ./?p=article");
+                }
+            }
+
+            // récupération de l'article par son id
+            $article = thearticleAdminSelectOneByIdForDelete($dbConnect, $idarticle);
+
+            // pas d'articles
+            if (is_null($article)) {
+                $error = "Article inexistant";
+                $recupSection = [];
+                require_once "../view/error404View.php";
+                die();
+            }
+
+            // chargement de la vue
+            require_once "../view/adminView/articlesDeleteAdminView.php";
         } else {
 
             // appel de la fonction qui récupère tous les articles
