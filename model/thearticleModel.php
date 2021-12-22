@@ -252,18 +252,21 @@ function thearticleValidationById(mysqli $db, int $idarticle, bool $validation)
 function thearticleAdminUpdateById(mysqli $db, array $datas): bool
 {
 
-
+    $datas['thearticleTitle'] = htmlspecialchars(strip_tags(trim($datas['thearticleTitle'])), ENT_QUOTES);
+    $datas['thearticleText'] = htmlspecialchars(strip_tags(trim($datas['thearticleText'])), ENT_QUOTES);
+    $datas['thearticleDate'] = date("Y-m-d H:i:s", strtotime($datas['thearticleDate']));
     // Requête préparée, elle empèche les injections SQL, mais n'est généralement pas suffisante pour éviter les bugs et/ou manipulations non désirées d'utilisateurs malveillants. Cependant il ya a une règle de base:
     // Toute requête avec ne serait-ce qu'une entrée utilisateur DOIT toujours être une requête préparée
     $sqlPrepare = mysqli_prepare($db, "UPDATE `thearticle` SET  
     `thearticleTitle`=?,
+    `thearticleDate`=?,
     `thearticleStatus`= ?,
     `thearticleText`=?, 
     `theuser_idtheuser`=?
 
      WHERE `idthearticle` = ?;");
 
-    mysqli_stmt_bind_param($sqlPrepare, "sisii", $datas['thearticleTitle'], $datas['thearticleStatus'], $datas['thearticleText'], $datas['theuser_idtheuser'], $datas['idthearticle']);
+    mysqli_stmt_bind_param($sqlPrepare, "ssisii", $datas['thearticleTitle'], $datas['thearticleDate'], $datas['thearticleStatus'], $datas['thearticleText'], $datas['theuser_idtheuser'], $datas['idthearticle']);
 
     mysqli_stmt_execute($sqlPrepare) or die("Erreur SQL :" . mysqli_error($db));
 
@@ -279,12 +282,16 @@ function thearticleAdminUpdateById(mysqli $db, array $datas): bool
 
         // transformation de notre id en integer
         $idarticle = (int) $datas['idthearticle'];
+
         // début de la requête préparée
         $sql = "INSERT INTO thearticle_has_thesection (`thearticle_idthearticle`,`thesection_idthesection`) VALUES ";
+
+        // tant qu'on a des sections, on concatène notre requête SQL (pour n'envoyer qu'une requête et donc gagner en rapidité d'exécution)
         foreach ($datas['idthesection'] as $value) {
             $idsection = (int) $value;
             $sql .= "($idarticle, $idsection),";
         }
+        // attention, pour éviter l'erreur SQL , on retir la dernière virgule avec substr
         $sql = substr($sql, 0, -1);
         mysqli_query($db, $sql)  or die("Erreur SQL :" . mysqli_error($db));
     }
