@@ -8,4 +8,8 @@ config.php
 .idea/
 
 # mwb.bak
+<<<<<<< HEAD
 data/mvcadmin.mwb.bak
+=======
+data/mvcadmin.mwb.bak
+>>>>>>> 8f5469b1fa8b2d7f9fca611f9a6b64b84769876c
