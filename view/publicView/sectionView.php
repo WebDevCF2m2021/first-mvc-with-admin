@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Nos articles</title>
+    <title>Section : <?= $thesection['thesectionTitle'] ?> </title>
     <link rel="stylesheet" href="css/bootstrap.css" media="screen">
     <link rel="stylesheet" href="css/custom.min.css" media="screen">
     <link rel="stylesheet" href="css/lightbox.min.css" media="screen">
@@ -46,8 +46,8 @@
             <div class="row">
                 <div class="col-lg-12 mx-auto">
 
-                    <h1>Tous nos articles</h1>
-                    <p class="lead">Nombre d'articles: <?= count($recupArticle) ?> </p>
+                    <h1>Section : <?= $thesection['thesectionTitle'] ?></h1>
+                    <p class="lead"><?= $thesection['thesectionDesc'] ?><br><br>Nombre d'articles de la section: <?= count($recupArticle) ?> </p>
                     <div class="alert alert-dark" role="alert">
                         Ce site est un travail scolaire et n'est pas référencé, il est en lien avec ce référentiel
                         <a href="https://github.com/WebDevCF2m2021/first-mvc-with-admin" target="_blank">Github</a>.<br> Ce site est un exemple de MVC en PHP/MySQL procédural d'une administration à plusieurs niveaux de droits
@@ -58,7 +58,7 @@
                     // si pas d'articles (article vide)
                     if (empty($recupArticle)) :
                     ?>
-                        <h3>Pas encore d'articles sur le site</h3>
+                        <h3>Pas encore d'articles dans cette section</h3>
                         <?php
                     // sinon (on a au moins un article)
                     else :

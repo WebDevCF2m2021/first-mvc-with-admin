@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Nos articles</title>
+    <title>Utilisateur : <?= $recupUser['theuserLogin'] ?> </title>
     <link rel="stylesheet" href="css/bootstrap.css" media="screen">
     <link rel="stylesheet" href="css/custom.min.css" media="screen">
     <link rel="stylesheet" href="css/lightbox.min.css" media="screen">
@@ -21,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
                     <?php
-                    // var_dump($recupSection);
+
                     foreach ($recupSection as $section) :
                     ?>
                         <li class="nav-item">
@@ -46,8 +46,8 @@
             <div class="row">
                 <div class="col-lg-12 mx-auto">
 
-                    <h1>Tous nos articles</h1>
-                    <p class="lead">Nombre d'articles: <?= count($recupArticle) ?> </p>
+                    <h1>Utilisateur : <?= $recupUser['theuserLogin'] ?> - <?= $recupUser['theuserName'] ?></h1>
+                    <p class="lead">Cet utilisateur a la permission <strong><?= $recupUser['therightName'] ?></strong> <br><br>Nombre d'articles de écrit par <?= $recupUser['theuserName'] ?> : <?= count($recupArticle) ?> </p>
                     <div class="alert alert-dark" role="alert">
                         Ce site est un travail scolaire et n'est pas référencé, il est en lien avec ce référentiel
                         <a href="https://github.com/WebDevCF2m2021/first-mvc-with-admin" target="_blank">Github</a>.<br> Ce site est un exemple de MVC en PHP/MySQL procédural d'une administration à plusieurs niveaux de droits
@@ -55,10 +55,11 @@
 
                     <hr>
                     <?php
+                    //var_dump($recupArticle);
                     // si pas d'articles (article vide)
                     if (empty($recupArticle)) :
                     ?>
-                        <h3>Pas encore d'articles sur le site</h3>
+                        <h3>Pas encore d'articles écrit par <?= $recupUser['theuserLogin'] ?></h3>
                         <?php
                     // sinon (on a au moins un article)
                     else :
@@ -97,7 +98,7 @@
                                 endif;
                                 ?>
                                 <p><?= cuteTheText($item['thearticleText'], 200) ?> <a href="?idarticle=<?= $item['idthearticle'] ?>">Lire la suite</a></p>
-                                <div>Ecrit par <a href="?iduser=<?= $item['idtheuser'] ?>"><?= $item['theuserName'] ?></a> le <?= frenchDate($item['thearticleDate'], 3) ?></div>
+                                <div>Ecrit par <?= $recupUser['theuserName'] ?> le <?= frenchDate($item['thearticleDate'], 3) ?></div>
                                 <hr>
                             </div>
                     <?php
