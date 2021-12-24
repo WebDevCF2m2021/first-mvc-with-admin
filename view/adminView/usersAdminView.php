@@ -83,6 +83,7 @@
                         <tbody>
                             <?php
                             foreach ($recupUsers as $user) {
+
                                 switch ($user["therightPerm"]) {
                                     case 3:
                                         $td = "alert-success";
@@ -100,6 +101,9 @@
                             ?>
                                 <tr <?= $TD ?>>
                                     <td scope="row"><?= $user["idtheuser"] ?> </td>
+
+                                <tr <?= $TD ?>>
+                                    <td scope="row"><?= $user["idtheuser"] ?></td>
                                     <td><?= $user["theuserName"] ?></td>
                                     <td><?= $user["theuserLogin"] ?></td>
                                     <td>
