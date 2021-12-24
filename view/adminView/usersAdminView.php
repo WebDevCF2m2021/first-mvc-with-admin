@@ -67,7 +67,7 @@
                     endif;
                     // si pas d'articles (article vide)
                     ?>
-                    <h3>Nombre d'article : <?= count($recupUsers) ?></h3>
+                    <h3>Nombre d'utilisateurs : <?= count($recupUsers) ?></h3>
                     <table class="table">
                         <thead>
                             <tr>
