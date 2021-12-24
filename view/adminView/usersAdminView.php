@@ -73,9 +73,7 @@
                                 <th scope="col">idtheuser</th>
                                 <th scope="col">theuserName</th>
                                 <th scope="col">theuserLogin</th>
-                                <th scope="col">idtheright</th>
                                 <th scope="col">therightName</th>
-                                <th scope="col">therightdesc</th>
                                 <th scope="col">therightPerm</th>
                                 <th scope="col">Modifier</th>
                                 <th scope="col">Supprimer</th>
@@ -83,20 +81,15 @@
                         </thead>
                         <tbody>
                             <?php
-
-                            // exercice, choisissez une couleur par ligne d'un droit
-
                             foreach ($recupUsers as $user) {
-
-                                $TD = ($user["therightPerm"] == 3) ?  " class='alert alert-success' " : "";
                             ?>
-                                <tr <?= $TD ?>>
-                                    <td scope="row"><?= $user["idtheuser"] ?></td>
+                                <tr>
+                                    <td scope="row"><?= $user["idtheuser"] ?> </td>
                                     <td><?= $user["theuserName"] ?></td>
                                     <td><?= $user["theuserLogin"] ?></td>
-                                    <td><?= $user["idtheright"] ?></td>
-                                    <td><?= $user["therightName"] ?></td>
-                                    <td><?= $user["therightdesc"] ?></td>
+                                    <td>
+                                        <a data-bs-toggle="tooltip" data-bs-placement="top" title=" <?= $user["therightdesc"] ?>"><?= $user["therightName"] ?> </a>
+                                    </td>
                                     <td><?= $user["therightPerm"] ?></td>
                                     <td><a href="?p=user&update=<?= $user["idtheuser"] ?>"><img src="img/update.png" alt="update" /></a></td>
                                     <td><a href="?p=user&delete=<?= $user["idtheuser"] ?>"><img src="img/delete.png" alt="delete" /></a></td>
