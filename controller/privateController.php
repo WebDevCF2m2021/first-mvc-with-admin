@@ -15,7 +15,7 @@ switch ($_SESSION['therightPerm']) {
         // admin
     case 3:
         // chargement du contrôleur de l'admin
-        require_once "private/adminController.php";
+        require_once "privateController/adminController.php";
         break;
         // moderator
     case 2:
