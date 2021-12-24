@@ -24,7 +24,7 @@
                         <a class="nav-link" href="?p=article">Gestion des articles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active">Gestion des utilisateurs</a>
+                        <a class="nav-link active" href="?p=user">Gestion des utilisateurs</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="?p=section">Gestion des sections</a>
@@ -65,8 +65,9 @@
                         </div>
                     <?php
                     endif;
+                    // si pas d'articles (article vide)
                     ?>
-                    <h3>Nombre d'utilisateurs : <?= count($recupUsers) ?></h3>
+                    <h3>Nombre d'article : <?= count($recupUsers) ?></h3>
                     <table class="table">
                         <thead>
                             <tr>
@@ -82,8 +83,22 @@
                         <tbody>
                             <?php
                             foreach ($recupUsers as $user) {
+                                switch ($user["therightPerm"]) {
+                                    case 3:
+                                        $td = "alert-success";
+                                        break;
+                                    case 2:
+                                        $td = "alert-info";
+                                        break;
+                                    case 1:
+                                        $td = "alert-secondary";
+                                        break;
+                                    default:
+                                        $td = "alert-light";
+                                }
+                                $TD = " class='alert " . ($td ?? " ") . "'";
                             ?>
-                                <tr>
+                                <tr <?= $TD ?>>
                                     <td scope="row"><?= $user["idtheuser"] ?> </td>
                                     <td><?= $user["theuserName"] ?></td>
                                     <td><?= $user["theuserLogin"] ?></td>
