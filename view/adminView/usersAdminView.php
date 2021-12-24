@@ -88,8 +88,19 @@
 
                             foreach ($recupUsers as $user) {
 
-                                $TD = ($user["therightPerm"] == 3) ?  " class='alert alert-success' " : "";
-                            ?>
+                                //$TD = ($user["therightPerm"] == 3) ?  " class='alert alert-success' " : "";
+                                
+                                 switch ($user["therightPerm"]){
+                                    case 1: $TD = "class ='alert alert-light'" ;
+                                        break;
+                                    case 2: $TD = "class ='alert alert-warning'";
+                                        break;
+                                    case 3: $TD = " class='alert alert-success'" ;
+                                        break;
+                                    default : $TD = "";
+                                 } 
+                                
+                                ?>
                                 <tr <?= $TD ?>>
                                     <td scope="row"><?= $user["idtheuser"] ?></td>
                                     <td><?= $user["theuserName"] ?></td>
