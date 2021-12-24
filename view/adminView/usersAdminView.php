@@ -81,10 +81,8 @@
                         </thead>
                         <tbody>
                             <?php
-
-                            // exercice, choisissez une couleur par ligne d'un droit
-
                             foreach ($recupUsers as $user) {
+
 
                                 //$TD = ($user["therightPerm"] == 3) ?  " class='alert alert-success' " : "";
                                 
