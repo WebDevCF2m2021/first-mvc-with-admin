@@ -95,7 +95,7 @@ if (isset($_GET['p'])) {
             // si on a cliqué sur "confirmation"
             if (isset($_GET['confirm'])) {
                 if (thearticleAdminDeleteById($dbConnect, $idarticle)) {
-                    header("Location: ./?p=article");
+                    header("Location: ./?p=article&message=" . "Article ID $idarticle supprimé");
                 }
             }
 

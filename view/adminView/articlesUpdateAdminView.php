@@ -113,7 +113,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Rubriques : </label><br>
+                                <label>Date : </label><br>
                                 <input type="datetime-local" name="thearticleDate" class="form-control" value="<?= date("Y-m-d\TH:i", strtotime($article["thearticleDate"])) ?>" required>
                             </div>
                             <div class="form-group">
