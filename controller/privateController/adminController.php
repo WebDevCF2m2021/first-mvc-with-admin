@@ -19,6 +19,9 @@ if (isset($_GET['p'])) {
             // Appel du contrôleur admin qui gère les utilisateurs
             require_once "adminController/adminUserController.php";
             break;
+        case "profile":
+            require_once "profileController.php";
+            break;
     }
     // si la variable get "p" n'existe pas    
 } else {
