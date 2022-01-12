@@ -14,6 +14,16 @@ if (isset($_GET["create"])) {
 
     require_once "../view/adminView/sectionsCreateAdminView.php";
 } elseif (isset($_GET["delete"]) && ctype_digit($_GET["delete"]) && !empty($_GET["delete"])) {
+    $idsection = (int)$_GET["delete"];
+
+    if (isset($_GET['confirm'])) {
+        if (thesectionDeleteById($dbConnect, $idsection)) {
+            header("Location: ./?p=section&message=" . "La section ID $idsection supprimée");
+        }
+    }
+
+    $section = thesectionSelectOne($dbConnect, $idsection);
+    require "../view/adminView/sectionsDeleteAdminView.php";
 } else {
     $recupSections = thesectionSelectAllForAdmin($dbConnect);
 
