@@ -26,6 +26,8 @@ if (isset($_GET['delete']) && ctype_digit($_GET['delete']) && !empty($_GET['dele
     }
     if ($user["therightPerm"] != 3) {
         require_once "../view/adminView/usersDeleteAdminView.php";
+    } else {
+        header("Location: ./?p=user&error=" . "Vous ne pouvez pas supprimer un admin!");
     }
 
     /*
