@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Administration: Création d'une section</title>
+    <title>Administration: Modification d'une section</title>
     <link rel="stylesheet" href="css/bootstrap.css" media="screen">
     <link rel="stylesheet" href="css/custom.min.css" media="screen">
     <link rel="stylesheet" href="css/lightbox.min.css" media="screen">
@@ -24,10 +24,10 @@
                         <a class="nav-link" href="?p=article">Gestion des articles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  active" href="?p=user">Gestion des utilisateurs</a>
+                        <a class="nav-link" href="?p=user">Gestion des utilisateurs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?p=section">Gestion des sections</a>
+                        <a class="nav-link active" href="?p=section">Gestion des sections</a>
                     </li>
 
                     <li class="nav-item">
@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-lg-12 mx-auto">
 
-                    <h1>Administration: Création d'une section</h1>
+                    <h1>Administration: Modification d'une section</h1>
                     <p class="lead">Bienvenue <?= $_SESSION['theuserName'] ?>, vous êtes connectés en tant que <?= $_SESSION['therightName'] ?></p>
                     <div class="alert alert-dark" role="alert">
                         Ce site est un travail scolaire et n'est pas référencé, il est en lien avec ce référentiel

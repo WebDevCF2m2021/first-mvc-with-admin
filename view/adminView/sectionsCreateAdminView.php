@@ -24,10 +24,10 @@
                         <a class="nav-link" href="?p=article">Gestion des articles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  active" href="?p=user">Gestion des utilisateurs</a>
+                        <a class="nav-link" href="?p=user">Gestion des utilisateurs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?p=section">Gestion des sections</a>
+                        <a class="nav-link active" href="?p=section">Gestion des sections</a>
                     </li>
 
                     <li class="nav-item">

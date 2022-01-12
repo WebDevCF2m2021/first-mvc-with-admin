@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Administration: Suppression de l'utilisateur</title>
+    <title>Administration: Suppression d'une section</title>
     <link rel="stylesheet" href="css/bootstrap.css" media="screen">
     <link rel="stylesheet" href="css/custom.min.css" media="screen">
     <link rel="stylesheet" href="css/lightbox.min.css" media="screen">
@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-lg-12 mx-auto">
 
-                    <h1>Administration: Suppression de l'utilisateur</h1>
+                    <h1>Administration: Suppression d'une section</h1>
                     <p class="lead">Bienvenue <?= $_SESSION['theuserName'] ?>, vous êtes connectés en tant que <?= $_SESSION['therightName'] ?></p>
                     <div class="alert alert-dark" role="alert">
                         Ce site est un travail scolaire et n'est pas référencé, il est en lien avec ce référentiel
