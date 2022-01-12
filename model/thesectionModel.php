@@ -32,3 +32,12 @@ function thesectionSelectOne(mysqli $db, int $id): ?array
     // si on a un résultat (la section existe) envoi d'un tableau associatif ou null si il est vide
     return mysqli_fetch_assoc($request);
 }
+
+function thesectionInsert(mysqli $db, string $title, string $desc): bool
+{
+    $sql = mysqli_prepare($db, "INSERT INTO `thesection` (`thesectionTitle`, `thesectionDesc`) VALUES (?, ?);");
+
+    mysqli_stmt_bind_param($sql, "ss", $title, $desc);
+
+    return mysqli_stmt_execute($sql) or die("Erreur SQL :" . mysqli_error($db));
+}

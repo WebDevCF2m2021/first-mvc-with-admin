@@ -66,11 +66,11 @@
                         <form action="" name="connexion" method="POST">
                             <div class="form-group">
                                 <label>Titre : </label>
-                                <input type="text" name="theuserName" minlength="6" maxlength="120" class="form-control" required>
+                                <input type="text" name="thesectionTitle" maxlength="120" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Description : </label>
-                                <textarea name="theuserLogin" maxlength="120" class="form-control" rows="3" required></textarea>
+                                <textarea name="thesectionDesc" maxlength="200" class="form-control" rows="3" required></textarea>
                             </div>
 
 
