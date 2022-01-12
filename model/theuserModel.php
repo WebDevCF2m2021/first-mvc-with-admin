@@ -42,7 +42,18 @@ function theuserSelectOneById(mysqli $db, int $id): ?array
 
     return mysqli_fetch_assoc($request);
 }
+function theuserSelectOneByIdForAdmin(mysqli $db, int $id): ?array
+{
+    // ici on utilise pas le nom des tables ni des alias (mauvaise pratique) car tous nos champs de nos tables de la DB ont des noms différents
+    $sql = "SELECT idtheuser, theuserName, theuserLogin, theuserPwd, therightName, therightdesc, therightPerm
+            FROM theuser
+                INNER JOIN theright
+                    ON theright_idtheright = idtheright
+            WHERE idtheuser=$id;";
+    $request = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
 
+    return mysqli_fetch_assoc($request);
+}
 
 /**
  * theuserSelectOneByLogin
@@ -75,6 +86,31 @@ function theuserSelectOneByLogin(mysqli $db, string $login, string $pwd): bool
     } else {
         return false;
     }
+}
+
+function theuserInsertWithNameLoginPwdRight(mysqli $db, string $name, string $login, string $pwd, int $right): bool
+{
+    $sqlPrepare = mysqli_prepare($db, "INSERT INTO `theuser`(`theuserName`, `theuserLogin`, `theuserPwd`, `theright_idtheright`) VALUES (?,?,?,?)");
+
+    mysqli_stmt_bind_param($sqlPrepare, "sssi", $name, $login, $pwd, $right);
+
+    return mysqli_stmt_execute($sqlPrepare) or die("Erreur SQL :" . mysqli_error($db));
+}
+
+function theuserUpdateWithNameLoginPwdRight(mysqli $db, string $name, string $login, string $pwd, int $right, int $id): bool
+{
+    $sqlPrepare = mysqli_prepare($db, "UPDATE `theuser` SET `theuserName`=?,`theuserLogin`=?,`theuserPwd`=?,`theright_idtheright`=? WHERE `idtheuser`= ?");
+
+    mysqli_stmt_bind_param($sqlPrepare, "sssii", $name, $login, $pwd, $right, $id);
+
+    return mysqli_stmt_execute($sqlPrepare) or die("Erreur SQL :" . mysqli_error($db));
+}
+
+function theuserDeleteById(mysqli $db, int $iduser): bool
+{
+    $sql = "DELETE FROM theuser WHERE idtheuser = $iduser AND theright_idtheright != 4";
+    mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+    return mysqli_affected_rows($db);
 }
 
 // connexion
