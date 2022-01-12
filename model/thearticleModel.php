@@ -66,6 +66,109 @@ function thearticleSelectOneById(mysqli $db, int $idarticle): array
     return mysqli_fetch_assoc($recup);
 }
 
+/**
+ * thearticleAdminSelectOneById
+ * 
+ * récupération d'un article complet avec auteur et sections incluses
+ * 
+ * si l'id du tableau envoyer vaut null, l'article n'a pas été trouvé : (is_null($array('idthearticle')))
+ *
+ * @param  mysqli $db
+ * @param  int $idarticle
+ * @return array
+ * 
+ */
+function thearticleAdminSelectOneById(mysqli $db, int $idarticle): array
+{
+    // requête de sélection d'un article par son id, avec ses rubriques classées par ordre alphabétique (! dans le GROUP_CONCAT, il faut les même ORDER BY pour les colonnes venant de la même table!). Comme on ne peut avoir qu'un (ou 0) résultat, le GROUP BY est inutile
+    $sql = " SELECT a.idthearticle, a.thearticleTitle, a.thearticleText, a.thearticleDate, a.thearticleStatus,
+                    u.idtheuser, u.theuserName,	
+                    GROUP_CONCAT(s.idthesection ORDER BY s.thesectionTitle ASC) AS idthesection, 
+                    GROUP_CONCAT(s.thesectionTitle ORDER BY s.thesectionTitle ASC SEPARATOR '|||') AS thesectionTitle
+             FROM thearticle a
+                LEFT JOIN theuser u
+                ON a.theuser_idtheuser = u.idtheuser 
+            LEFT JOIN thearticle_has_thesection h
+                ON a.idthearticle = h.thearticle_idthearticle
+            LEFT JOIN thesection s
+                ON h.thesection_idthesection = s.idthesection
+            WHERE a.idthearticle = $idarticle;";
+
+    // récupération d'un article (ou d'aucun), ou affichage de l'erreur SQL et arrêt
+    $recup = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+
+    return mysqli_fetch_assoc($recup);
+}
+
+function thearticleAdminDeleteById(mysqli $db, int $idarticle): bool
+{
+    $sql = "DELETE FROM thearticle WHERE idthearticle = $idarticle";
+    return mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+}
+
+/**
+ * thearticleAdminSelectOneByIdForDelete
+ *
+ * Sélection minimale pour approuver la suppression d'un article (Admin uniquement)
+ * 
+ * @param  mysqli $db
+ * @param  int $idarticle
+ * @return array|NULL
+ */
+function thearticleAdminSelectOneByIdForDelete(mysqli $db, int $idarticle): ?array
+{
+    // requête de sélection d'un article par son id avec les champs minimaux
+    $sql = " SELECT idthearticle, thearticleTitle, thearticleText, thearticleDate
+             FROM thearticle 
+                WHERE idthearticle = $idarticle;";
+
+    // récupération d'un article (ou d'aucun), ou affichage de l'erreur SQL et arrêt
+    $recup = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+
+    return mysqli_fetch_assoc($recup);
+}
+
+/*
+Insertion d'un article avec son auteur et ses section
+*/
+/**
+ * thearticleInsertWithUserAndSection
+ *
+ * @param  mysqli $db
+ * @param  string $title
+ * @param  string $text
+ * @param  int $status
+ * @param  int $iduser
+ * @param  array $idsection
+ * @return bool
+ */
+function thearticleInsertWithUserAndSection(mysqli $db, string $title, string $text, int $status, int $iduser, array $idsection): bool
+{
+    // insertion d'article
+    $sql = "INSERT INTO thearticle (`thearticleTitle`,`thearticleText`,`thearticleStatus`,`theuser_idtheuser`) VALUES ('$title','$text',$status,$iduser);";
+
+    $request = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+
+    // insertion ok
+    if ($request && !empty($idsection)) {
+        // récupération du dernier inséré par cette connexion (nous donc)
+        $idarticle = mysqli_insert_id($db);
+
+        // $sql pour la jointure entre article et section
+        $sql = "INSERT INTO `thearticle_has_thesection` (`thearticle_idthearticle`,`thesection_idthesection`) values ";
+
+        // tant qu'on a des sections (au moins une)
+        foreach ($idsection as $item) {
+            $item = (int) $item;
+            $sql .= "($idarticle,'$item'),";
+        }
+        $sqlok = substr($sql, 0, -1);
+        $insert_join = mysqli_query($db, $sqlok)  or die("Erreur SQL :" . mysqli_error($db));
+
+        return $insert_join;
+    }
+    return true;
+}
 
 // récupération de tous les articles par date DESC pour la page d'accueil (tant qu'ils ont un auteur et sont publiés), avec un texte de 250 caractères, avec auteurs et sections incluses
 function thearticleHomepageSelectAll(mysqli $db): array
@@ -153,6 +256,75 @@ WHERE a.thearticleStatus = 1 AND s.idthesection = $idsection
     $recup = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
 
     return mysqli_fetch_all($recup, MYSQLI_ASSOC);
+}
+
+// changement de visibilité d'article pour la gestion de ceux-ci sur l'administration de ?p=article en one click
+function thearticleValidationById(mysqli $db, int $idarticle, bool $validation)
+{
+    // requête
+    $sql = "UPDATE `thearticle` SET `thearticleStatus`= " . (int) $validation . " WHERE `idthearticle` = $idarticle;";
+
+    mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+}
+
+
+/**
+ * thearticleAdminUpdateById
+ *
+ * En va faire une requête préparée en mysqli procédurale (rare en procédural, très fréquent en OO - Orienté objet) pour éviter toutes injection SQL, mais sans vérifier de manière stricte les valeurs
+ * 
+ * @param  mysqli $db
+ * @param  array $datas
+ * @return bool
+ */
+function thearticleAdminUpdateById(mysqli $db, array $datas): bool
+{
+
+    $datas['thearticleTitle'] = htmlspecialchars(strip_tags(trim($datas['thearticleTitle'])), ENT_QUOTES);
+    $datas['thearticleText'] = htmlspecialchars(strip_tags(trim($datas['thearticleText'])), ENT_QUOTES);
+    $datas['thearticleDate'] = date("Y-m-d H:i:s", strtotime($datas['thearticleDate']));
+    // Requête préparée, elle empèche les injections SQL, mais n'est généralement pas suffisante pour éviter les bugs et/ou manipulations non désirées d'utilisateurs malveillants. Cependant il ya a une règle de base:
+    // Toute requête avec ne serait-ce qu'une entrée utilisateur DOIT toujours être une requête préparée
+    $sqlPrepare = mysqli_prepare($db, "UPDATE `thearticle` SET  
+    `thearticleTitle`=?,
+    `thearticleDate`=?,
+    `thearticleStatus`= ?,
+    `thearticleText`=?, 
+    `theuser_idtheuser`=?
+
+     WHERE `idthearticle` = ?;");
+
+    mysqli_stmt_bind_param($sqlPrepare, "ssisii", $datas['thearticleTitle'], $datas['thearticleDate'], $datas['thearticleStatus'], $datas['thearticleText'], $datas['theuser_idtheuser'], $datas['idthearticle']);
+
+    mysqli_stmt_execute($sqlPrepare) or die("Erreur SQL :" . mysqli_error($db));
+
+    // quoi qu'il arrive, on doit supprimer le lien (m2m) vers les anciennes sections de la base de données liées avec l'article actuel (on a par exemple décoché toutes les sections de l'article)
+    $sql = "DELETE FROM `thearticle_has_thesection` WHERE `thearticle_idthearticle` = ?";
+    $sqlPrepare2 = mysqli_prepare($db, $sql);
+    mysqli_stmt_bind_param($sqlPrepare2, "i", $datas['idthearticle']);
+
+    mysqli_stmt_execute($sqlPrepare2) or die("Erreur SQL :" . mysqli_error($db));
+
+    // Si on a coché une section (au moins)
+    if (isset($datas['idthesection']) && is_array($datas['idthesection'])) {
+
+        // transformation de notre id en integer
+        $idarticle = (int) $datas['idthearticle'];
+
+        // début de la requête préparée
+        $sql = "INSERT INTO thearticle_has_thesection (`thearticle_idthearticle`,`thesection_idthesection`) VALUES ";
+
+        // tant qu'on a des sections, on concatène notre requête SQL (pour n'envoyer qu'une requête et donc gagner en rapidité d'exécution)
+        foreach ($datas['idthesection'] as $value) {
+            $idsection = (int) $value;
+            $sql .= "($idarticle, $idsection),";
+        }
+        // attention, pour éviter l'erreur SQL , on retir la dernière virgule avec substr
+        $sql = substr($sql, 0, -1);
+        mysqli_query($db, $sql)  or die("Erreur SQL :" . mysqli_error($db));
+    }
+
+    return true;
 }
 
 /**

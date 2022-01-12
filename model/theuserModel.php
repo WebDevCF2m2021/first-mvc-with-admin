@@ -1,4 +1,31 @@
 <?php
+
+/*
+Récupération de tous les utilisateurs pour l'insertion ou la modification d'articles par l'admin
+*/
+function theuserSelectAll(mysqli $db): array
+{
+    $sql = "SELECT idtheuser, theuserName, theuserLogin
+            FROM theuser ORDER BY theuserName ASC;";
+    $request = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+    return mysqli_fetch_all($request, MYSQLI_ASSOC);
+}
+
+/*
+Récupération de tous les utilisateurs pour l'affichage par l'admin
+*/
+function theuserWithRightSelectAll(mysqli $db): array
+{
+    $sql = "SELECT u.idtheuser, u.theuserName, u.theuserLogin,
+                   r.*
+            FROM theuser u
+                INNER JOIN theright r
+                ON u.theright_idtheright = r.idtheright
+             ORDER BY u.theuserName ASC;";
+    $request = mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+    return mysqli_fetch_all($request, MYSQLI_ASSOC);
+}
+
 /*
 récupération d'un utilisateur et ses droit par son id, si on le trouve, on reçoit un tableau associatif (array) sinon ce return renvoit NULL: donc le ?array nous permets en PHP7 de récupérer OU un array ou null
 */
