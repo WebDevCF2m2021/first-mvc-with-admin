@@ -24,6 +24,20 @@ if (isset($_GET["create"])) {
 
     $section = thesectionSelectOne($dbConnect, $idsection);
     require "../view/adminView/sectionsDeleteAdminView.php";
+} elseif (isset($_GET["update"]) && ctype_digit($_GET["update"]) && !empty($_GET["update"])) {
+    $idsection = (int)$_GET["update"];
+
+    if (isset($_POST["thesectionTitle"])) {
+        $title = htmlspecialchars(strip_tags(trim($_POST["thesectionTitle"])), ENT_QUOTES);
+        $desc = htmlspecialchars(strip_tags(trim($_POST["thesectionDesc"])), ENT_QUOTES);
+
+        if ($title && $desc) {
+            thesectionUpdateById($dbConnect, $title, $desc, $idsection);
+            header("Location: ./?p=section");
+        }
+    }
+    $section = thesectionSelectOne($dbConnect, $idsection);
+    require "../view/adminView/sectionsUpdateAdminView.php";
 } else {
     $recupSections = thesectionSelectAllForAdmin($dbConnect);
 

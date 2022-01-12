@@ -42,6 +42,15 @@ function thesectionInsert(mysqli $db, string $title, string $desc): bool
     return mysqli_stmt_execute($sql) or die("Erreur SQL :" . mysqli_error($db));
 }
 
+function thesectionUpdateById(mysqli $db, string $title, string $desc, int $idsection): bool
+{
+    $sql = mysqli_prepare($db, "UPDATE `thesection` SET `thesectionTitle`= ?,`thesectionDesc`= ? WHERE `idthesection`= ?");
+
+    mysqli_stmt_bind_param($sql, "ssi", $title, $desc, $idsection);
+
+    return mysqli_stmt_execute($sql) or die("Erreur SQL :" . mysqli_error($db));
+}
+
 function thesectionDeleteById(mysqli $db, int $idsection): bool
 {
     $sql = mysqli_prepare($db, "DELETE FROM thesection WHERE idthesection = ?");
