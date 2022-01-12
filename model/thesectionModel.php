@@ -11,6 +11,15 @@ function thesectionSelectAll(mysqli $db): array
     return mysqli_fetch_all($request, MYSQLI_ASSOC);
 }
 
+function thesectionSelectAllForAdmin(mysqli $db): array
+{
+    $sql = "SELECT *
+            FROM thesection
+            ORDER BY idthesection;";
+    $request = mysqli_query($db, $sql) or die("Erreur sql : " . mysqli_error($db));
+    return mysqli_fetch_all($request, MYSQLI_ASSOC);
+}
+
 // fonction qui récupère une section grâce son id, arguments obligatoires ($db en mysqli, $id en int) et retour obligatoir un tableau (array) ou en PHP 7 un tableau ou null (?array)
 
 function thesectionSelectOne(mysqli $db, int $id): ?array
