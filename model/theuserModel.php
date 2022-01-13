@@ -88,12 +88,16 @@ function theuserSelectOneByLogin(mysqli $db, string $login, string $pwd): bool
     }
 }
 
+// fonction d'insertion d'un nouvel utilisateur dans la DB
 function theuserInsertWithNameLoginPwdRight(mysqli $db, string $name, string $login, string $pwd, int $right): bool
 {
+    // requête préparée pour bloquer toutes injections SQL
     $sqlPrepare = mysqli_prepare($db, "INSERT INTO `theuser`(`theuserName`, `theuserLogin`, `theuserPwd`, `theright_idtheright`) VALUES (?,?,?,?)");
 
+    // sssi -> string string string int
     mysqli_stmt_bind_param($sqlPrepare, "sssi", $name, $login, $pwd, $right);
 
+    // rexécution de la reqête
     return mysqli_stmt_execute($sqlPrepare) or die("Erreur SQL :" . mysqli_error($db));
 }
 

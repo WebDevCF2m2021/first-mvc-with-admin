@@ -24,8 +24,7 @@ require_once "../model/thearticleModel.php";
 require_once "../model/thesectionModel.php";
 // chargement du modèle de theuser
 require_once "../model/theuserModel.php";
-// chargement du modèle de theright
-require_once "../model/therightModel.php";
+
 
 // connexion à la DB
 $dbConnect = mysqli_connect(DB_HOST, DB_LOGIN, DB_PWD, DB_NAME, DB_PORT);

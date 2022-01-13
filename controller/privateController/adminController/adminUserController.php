@@ -1,5 +1,8 @@
 <?php
 
+// chargement du modèle de theright pour le "create" et l' "update"
+require_once "../model/therightModel.php";
+
 /*
 Si on veut supprimer un auteur (cruD)
 */
@@ -31,30 +34,54 @@ if (isset($_GET['delete']) && ctype_digit($_GET['delete']) && !empty($_GET['dele
     }
 
     /*
-Sinon on veut afficher tous les auteurs
-*/
+
+    Sinon on veut créer un auteur
+
+    */
 } elseif (isset($_GET["create"])) {
+
+    // chargement de tous les droits disponibles pour un nouvel utilisateur
     $rights = theRightSelectAll($dbConnect);
 
+    // si on a envoyé le formulaire
     if (isset($_POST["theuserName"])) {
+        // protection des données
         $name = htmlspecialchars(strip_tags(trim($_POST["theuserName"])), ENT_QUOTES);
         $login = htmlspecialchars(strip_tags(trim($_POST["theuserLogin"])), ENT_QUOTES);
+        // récupération des 2 mots de passe, utilisation seulement du trim pour permettre l'utilisation de caractères spéciaux dans le mot de passe (! il faudra une requête préparée pour éviter une injection SQL)
         $pwd = trim($_POST["theuserPwd"]);
         $pwdConfirm = trim($_POST["theuserPwdConfirm"]);
+
+        // récupération du droit
         $right = (int) $_POST["idtheright"];
 
+        // vérification que les 2 mots de passe ne sont pas les mêmes
         if ($pwd !== $pwdConfirm) {
+            // création de l'erreur
             $error = "Vos mots de passe ne correspondent pas!";
         } else {
+            // les champs sont valides
             if ($name && $login && $pwd && $right) {
+                // Insertion dans le DB (! vérification pour le login Duplicate à faire)
                 theuserInsertWithNameLoginPwdRight($dbConnect, $name, $login, $pwd, $right);
+                // redirection
                 header("Location: ./?p=user");
+                exit();
             } else {
                 $error = "L'insertion ne s'est pas effectuée, veuillez recommencer.";
             }
         }
     }
+    // Appel de la vue
     require_once "../view/adminView/usersCreateAdminView.php";
+
+    /*
+
+    Sinon on veut modifier un auteur
+
+    UPDATE ON EST ICI
+
+    */
 } elseif (isset($_GET['update']) && ctype_digit($_GET['update']) && !empty($_GET['update'])) {
     $iduser = (int) $_GET['update'];
     $rights = theRightSelectAll($dbConnect);

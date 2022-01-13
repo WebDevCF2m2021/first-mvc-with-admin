@@ -66,11 +66,11 @@
                         <form action="" name="connexion" method="POST">
                             <div class="form-group">
                                 <label>Nom : </label>
-                                <input type="text" name="theuserName" minlength="6" maxlength="120" class="form-control" required>
+                                <input type="text" name="theuserName" minlength="6" maxlength="120" class="form-control" value="<?php if (isset($_POST['theuserName'])) echo $_POST['theuserName'] ?>" required>
                             </div>
                             <div class="form-group">
                                 <label>Login : </label>
-                                <input type="text" name="theuserLogin" minlength="4" maxlength="50" class="form-control" required>
+                                <input type="text" name="theuserLogin" minlength="4" maxlength="50" class="form-control" value="<?php if (isset($_POST['theuserLogin'])) echo $_POST['theuserLogin'] ?>" required>
                             </div>
                             <div class="form-group">
                                 <label>Mot de passe : </label>
