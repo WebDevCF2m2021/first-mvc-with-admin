@@ -4,33 +4,47 @@
 require_once "../model/therightModel.php";
 
 /*
+
 Si on veut supprimer un auteur (cruD)
+
+DELETE 
 */
+// si la variable get 'delete' est définie ET qu'elle est une chaîne de caractère qui ne contient que des numériques entiers positifs ET qu'elle est différente de vide (pour le 0) 
 if (isset($_GET['delete']) && ctype_digit($_GET['delete']) && !empty($_GET['delete'])) {
 
+    // trabstypage de string to int
     $iduser = (int) $_GET['delete'];
 
+    // si il existe confirm (on a cliqué sur OUI)
     if (isset($_GET['confirm'])) {
+        // suppression de l'utilisateur
         if (theuserDeleteById($dbConnect, $iduser)) {
             header("Location: ./?p=user&message=" . "L'utilisateur ID $iduser supprimé");
+            exit;
         } else {
             header("Location: ./?p=user&error=" . "Vous ne pouvez pas supprimer un admin!");
+            exit;
         }
     }
 
     // sélection de l'utilisateur
     $user = theuserSelectOneById($dbConnect, $iduser);
 
+    // pas d'utilisateur = erreur 404
     if (is_null($user)) {
         $error = "Utilisateur inexistant";
         $recupSection = [];
         require_once "../view/error404View.php";
         die();
     }
+    // si on veut supprimer un admin
     if ($user["therightPerm"] != 3) {
+        // Appel de la vue de confirmation
         require_once "../view/adminView/usersDeleteAdminView.php";
     } else {
+        // on ne peut pas supprimer un admin
         header("Location: ./?p=user&error=" . "Vous ne pouvez pas supprimer un admin!");
+        die;
     }
 
     /*
@@ -95,18 +109,29 @@ if (isset($_GET['delete']) && ctype_digit($_GET['delete']) && !empty($_GET['dele
 
     // si on a cliqué modifié
     if (isset($_POST["theuserName"])) {
+        // protection des champs
         $name = htmlspecialchars(strip_tags(trim($_POST["theuserName"])), ENT_QUOTES);
         $login = htmlspecialchars(strip_tags(trim($_POST["theuserLogin"])), ENT_QUOTES);
         $pwd = trim($_POST["theuserPwd"]);
         $pwdConfirm = trim($_POST["theuserPwdConfirm"]);
         $right = (int) $_POST["idtheright"];
 
+        // les 2 mots de passe ne sont pas les mêmes
         if ($pwd !== $pwdConfirm) {
+
             $error = "Vos mots de passe ne correspondent pas!";
+
+            // les 2 mots de passe sont les mêmes
         } else {
+
+            // Et nos variables sont "acceptables" (pas vides)
             if ($name && $login && $pwd && $right) {
+
+                // Mise à jour de l'utilisateur
                 theuserUpdateWithNameLoginPwdRight($dbConnect, $name, $login, $pwd, $right, $iduser);
+                // redirection
                 header("Location: ./?p=user");
+                exit;
             } else {
                 $error = "L'insertion ne s'est pas effectuée, veuillez recommencer.";
             }

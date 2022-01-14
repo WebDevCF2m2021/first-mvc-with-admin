@@ -117,10 +117,12 @@ function theuserUpdateWithNameLoginPwdRight(mysqli $db, string $name, string $lo
     return mysqli_stmt_execute($sqlPrepare) or die("Erreur SQL :" . mysqli_error($db));
 }
 
+// suppression d'un utilisateur si il n'est pas un admin (theright_idtheright != 4)
 function theuserDeleteById(mysqli $db, int $iduser): bool
 {
     $sql = "DELETE FROM theuser WHERE idtheuser = $iduser AND theright_idtheright != 4";
     mysqli_query($db, $sql) or die("Erreur SQL :" . mysqli_error($db));
+    // renvoie le nombre de lignes affectée par la dernière requête (réussite =>1, échec =>0)
     return mysqli_affected_rows($db);
 }
 

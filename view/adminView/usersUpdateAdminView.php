@@ -87,6 +87,10 @@
                                 foreach ($rights as $right) :
 
                                     // On vérifie si le droit de l'utilisateur est le même que celui du tour actuel de la boucle, si c'est le cas on ajoute "checked" : L'utilisateur doit garder son droit venant de la DB à l'affichage du formulaire
+                                    /*
+utilisation d'un ternaire directement dans l'HTML avec PHP version courte :
+$right["therightPerm"] == $user["therightPerm"] ? "checked" : "";
+                                    */
                                 ?>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" id="inlineCheckbox<?= $right['idtheright'] ?>" name="idtheright" value="<?= $right['idtheright'] ?>" <?= $right["therightPerm"] == $user["therightPerm"] ? "checked" : ""; ?>>
