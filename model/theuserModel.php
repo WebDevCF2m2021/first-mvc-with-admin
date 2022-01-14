@@ -42,6 +42,8 @@ function theuserSelectOneById(mysqli $db, int $id): ?array
 
     return mysqli_fetch_assoc($request);
 }
+
+// récupération d'un utilisateur et ses droits grâce à son ID
 function theuserSelectOneByIdForAdmin(mysqli $db, int $id): ?array
 {
     // ici on utilise pas le nom des tables ni des alias (mauvaise pratique) car tous nos champs de nos tables de la DB ont des noms différents
@@ -101,12 +103,17 @@ function theuserInsertWithNameLoginPwdRight(mysqli $db, string $name, string $lo
     return mysqli_stmt_execute($sqlPrepare) or die("Erreur SQL :" . mysqli_error($db));
 }
 
+// Mise à jour d'un utilisateur grâce à un formulaire (POST) et son id (GET)
 function theuserUpdateWithNameLoginPwdRight(mysqli $db, string $name, string $login, string $pwd, int $right, int $id): bool
 {
+
+    // préparation de la requête
     $sqlPrepare = mysqli_prepare($db, "UPDATE `theuser` SET `theuserName`=?,`theuserLogin`=?,`theuserPwd`=?,`theright_idtheright`=? WHERE `idtheuser`= ?");
 
+    // application des variables dans le requête sssii -> string string string int int
     mysqli_stmt_bind_param($sqlPrepare, "sssii", $name, $login, $pwd, $right, $id);
 
+    // exécution de la requête
     return mysqli_stmt_execute($sqlPrepare) or die("Erreur SQL :" . mysqli_error($db));
 }
 

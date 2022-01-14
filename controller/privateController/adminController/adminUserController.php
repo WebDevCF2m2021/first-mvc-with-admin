@@ -79,14 +79,21 @@ if (isset($_GET['delete']) && ctype_digit($_GET['delete']) && !empty($_GET['dele
 
     Sinon on veut modifier un auteur
 
-    UPDATE ON EST ICI
+    UPDATE
 
     */
+
+    // sinon si la variable get 'update' est définie ET qu'elle est une chaîne de caractère qui ne contient que des numériques entiers positifs ET qu'elle est différente de vide (pour le 0)  
 } elseif (isset($_GET['update']) && ctype_digit($_GET['update']) && !empty($_GET['update'])) {
+
+    // transformation de string vers integer
     $iduser = (int) $_GET['update'];
+    // chargement de tous les droits disponibles pour un nouvel utilisateur
     $rights = theRightSelectAll($dbConnect);
+    // récupération d'un utilisateur et ses droits grâce à son ID
     $user = theuserSelectOneByIdForAdmin($dbConnect, $iduser);
 
+    // si on a cliqué modifié
     if (isset($_POST["theuserName"])) {
         $name = htmlspecialchars(strip_tags(trim($_POST["theuserName"])), ENT_QUOTES);
         $login = htmlspecialchars(strip_tags(trim($_POST["theuserLogin"])), ENT_QUOTES);
@@ -106,12 +113,25 @@ if (isset($_GET['delete']) && ctype_digit($_GET['delete']) && !empty($_GET['dele
         }
     }
 
+    // si l'utilisateur dans la DB n'est pas l'utilisateur connecté (impossible de se modifier soi-même)
     if ($user["idtheuser"] != $_SESSION["idtheuser"]) {
+
+        // Affichage de la vue du formulaire rempli avec les données de l'utilisateur venant de la DB
         require_once "../view/adminView/usersUpdateAdminView.php";
     } else {
+
+        // redirection si on essaie de se modifier soi-même
         header("Location: ./?p=user&error=" . "Vous ne pouvez pas vous modifier!");
     }
+    /*
+
+    Sinon on affiche la liste des utilisateurs
+
+    READ
+
+    */
 } else {
+    // sélection de tous les utilisateurs
     $recupUsers = theuserWithRightSelectAll($dbConnect);
     // appel de la vue (cRud)
     require_once "../view/adminView/usersAdminView.php";

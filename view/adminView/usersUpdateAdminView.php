@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Administration: Création d'un utilisateur</title>
+    <title>Administration: Modification d'un utilisateur</title>
     <link rel="stylesheet" href="css/bootstrap.css" media="screen">
     <link rel="stylesheet" href="css/custom.min.css" media="screen">
     <link rel="stylesheet" href="css/lightbox.min.css" media="screen">
@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-lg-12 mx-auto">
 
-                    <h1>Administration: Création d'un utilisateur</h1>
+                    <h1>Administration: Modification d'un utilisateur</h1>
                     <p class="lead">Bienvenue <?= $_SESSION['theuserName'] ?>, vous êtes connectés en tant que <?= $_SESSION['therightName'] ?></p>
                     <div class="alert alert-dark" role="alert">
                         Ce site est un travail scolaire et n'est pas référencé, il est en lien avec ce référentiel
@@ -83,7 +83,10 @@
                             <div class="form-group">
                                 <label>Droits : </label><br>
                                 <?php
+                                // tant qu'on a des droits
                                 foreach ($rights as $right) :
+
+                                    // On vérifie si le droit de l'utilisateur est le même que celui du tour actuel de la boucle, si c'est le cas on ajoute "checked" : L'utilisateur doit garder son droit venant de la DB à l'affichage du formulaire
                                 ?>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" id="inlineCheckbox<?= $right['idtheright'] ?>" name="idtheright" value="<?= $right['idtheright'] ?>" <?= $right["therightPerm"] == $user["therightPerm"] ? "checked" : ""; ?>>
