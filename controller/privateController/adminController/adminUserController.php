@@ -138,15 +138,20 @@ if (isset($_GET['delete']) && ctype_digit($_GET['delete']) && !empty($_GET['dele
         }
     }
 
-    // si l'utilisateur dans la DB n'est pas l'utilisateur connecté (impossible de se modifier soi-même)
-    if ($user["idtheuser"] != $_SESSION["idtheuser"]) {
-
-        // Affichage de la vue du formulaire rempli avec les données de l'utilisateur venant de la DB
-        require_once "../view/adminView/usersUpdateAdminView.php";
+    if (!is_null($user)) {
+        // si l'utilisateur dans la DB n'est pas l'utilisateur connecté (impossible de se modifier soi-même)
+        if ($user["idtheuser"] != $_SESSION["idtheuser"]) {
+            // Affichage de la vue du formulaire rempli avec les données de l'utilisateur venant de la DB
+            require_once "../view/adminView/usersUpdateAdminView.php";
+        } else {
+            // redirection si on essaie de se modifier soi-même
+            header("Location: ./?p=user&error=" . "Vous ne pouvez pas vous modifier!");
+        }
     } else {
-
-        // redirection si on essaie de se modifier soi-même
-        header("Location: ./?p=user&error=" . "Vous ne pouvez pas vous modifier!");
+        $error = "Utilisateur inexistant";
+        $recupSection = [];
+        require_once "../view/error404View.php";
+        die();
     }
     /*
 
