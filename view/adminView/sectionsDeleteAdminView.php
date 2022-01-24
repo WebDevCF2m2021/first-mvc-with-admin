@@ -55,7 +55,7 @@
                     <hr>
 
 
-                    <h3>Nom de la section : <?= $item["thesectionName"] ?></h3>
+                    <h3>Nom de la section : <?= $item["thesectionTitle"] ?></h3>
                     <div class="alert alert-danger" role="alert">
                         Voulez-vous vraiment supprimer cette section ? <a href="?p=section&delete=<?= $item["idthesection"] ?>&confirm">OUI</a> | <a href="?p=section">NON</a>
                     </div>

@@ -45,9 +45,19 @@ if (isset($_GET['create'])) {
  */
 } elseif (isset($_GET['delete']) && ctype_digit($_GET["delete"]) && !empty($_GET["delete"])) {
 
+    // transtypage en int
+    $delete = (int) $_GET['delete'];
+
+    if (isset($_GET['confirm'])) {
+    }
+
+    // récupération de la section
+    $item = thesectionSelectOne($dbConnect, $delete);
 
     // Appel de la vue
     require_once "../view/adminView/sectionsDeleteAdminView.php";
+
+
     /*
  sinon affichages de toutes les sections (cRud)
  */

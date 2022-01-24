@@ -51,7 +51,7 @@ CREATE
 /**
  * Ïnsertion dans la table thesection
  */
-function thesectionCreate(mysqli $db, string $theTitle, string $theDesc)
+function thesectionCreate(mysqli $db, string $theTitle, string $theDesc): bool
 {
 
     // requête préparée
@@ -62,4 +62,19 @@ function thesectionCreate(mysqli $db, string $theTitle, string $theDesc)
     mysqli_stmt_bind_param($sqlPrepare, "ss", $theTitle, $theDesc);
     // exécution de la requête préparée
     return mysqli_stmt_execute($sqlPrepare) or die("Erreur SQL :" . mysqli_error($db));
+}
+
+/*
+
+
+DELETE
+
+
+*/
+// suppression d'une section de la table section
+function thesectionDeleteById(mysqli $db, int $idsection): bool
+{
+    $sql = mysqli_prepare($db, "DELETE FROM thesection WHERE idsection=?");
+    mysqli_stmt_bind_param($sql, "i", $idsection);
+    return mysqli_stmt_execute($sql) or die("Erreur SQL :" . mysqli_error($db));
 }
