@@ -74,7 +74,7 @@ DELETE
 // suppression d'une section de la table section
 function thesectionDeleteById(mysqli $db, int $idsection): bool
 {
-    $sql = mysqli_prepare($db, "DELETE FROM thesection WHERE idsection=?");
+    $sql = mysqli_prepare($db, "DELETE FROM thesection WHERE idthesection=?");
     mysqli_stmt_bind_param($sql, "i", $idsection);
     return mysqli_stmt_execute($sql) or die("Erreur SQL :" . mysqli_error($db));
 }

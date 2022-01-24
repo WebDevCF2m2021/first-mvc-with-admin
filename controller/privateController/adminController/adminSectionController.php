@@ -48,7 +48,14 @@ if (isset($_GET['create'])) {
     // transtypage en int
     $delete = (int) $_GET['delete'];
 
+    // on valide la suppression
     if (isset($_GET['confirm'])) {
+        // si ça a fonctionné
+        if (thesectionDeleteById($dbConnect, $delete)) {
+            // redirection
+            header("location: ./?p=section");
+            exit();
+        }
     }
 
     // récupération de la section
