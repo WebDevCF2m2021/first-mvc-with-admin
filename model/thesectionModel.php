@@ -78,3 +78,18 @@ function thesectionDeleteById(mysqli $db, int $idsection): bool
     mysqli_stmt_bind_param($sql, "i", $idsection);
     return mysqli_stmt_execute($sql) or die("Erreur SQL :" . mysqli_error($db));
 }
+
+/*
+
+
+UPDATE
+
+
+*/
+// modification d'une section de la table section
+function thesectionUpdateById(mysqli $db, string $title, string $desc, int $idsection): bool
+{
+    $sql = mysqli_prepare($db, "UPDATE `thesection` SET `thesectionTitle`= ?,`thesectionDesc`= ? WHERE `idthesection`= ?");
+    mysqli_stmt_bind_param($sql, "ssi", $title, $desc, $idsection);
+    return mysqli_stmt_execute($sql) or die("Erreur SQL :" . mysqli_error($db));
+}

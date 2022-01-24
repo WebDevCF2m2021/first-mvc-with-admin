@@ -40,6 +40,20 @@ if (isset($_GET['create'])) {
  */
 } elseif (isset($_GET['update']) && ctype_digit($_GET["update"]) && !empty($_GET["update"])) {
 
+    $id = (int) $_GET["update"];
+
+    // si on a cliqué sur envoyer
+    if (isset($_POST['thesectionTitle'])) {
+        // traîtement des variables
+        $id = (int) $_POST['idthesection'];
+        $title = htmlspecialchars(strip_tags(trim($_POST['thesectionTitle'])), ENT_QUOTES);
+        $desc = htmlspecialchars(strip_tags(trim($_POST['thesectionDesc'])), ENT_QUOTES);
+    }
+
+    $item = thesectionSelectOne($dbConnect, $id);
+    // Appel de la vue
+    require_once "../view/adminView/sectionsUpdateAdminView.php";
+
     /*
  Sinon si on veut supprimer une section (cruD)  
  */

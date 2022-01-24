@@ -71,6 +71,7 @@
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Descrition de la section (peut être vide) : </label>
                                 <textarea name="thesectionDesc" class="form-control" id="exampleFormControlTextarea1" rows="5" maxlength="500"><?= $item['thesectionDesc'] ?></textarea>
+                                <input type="hidden" name="idthesection" value="<?= $item['idthesection'] ?>">
                             </div>
 
                     </div>
