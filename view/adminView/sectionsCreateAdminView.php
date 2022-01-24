@@ -69,7 +69,7 @@
                                 <input type="text" name="thesectionTitle" maxlength="150" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Descrition de la section : </label>
+                                <label for="exampleFormControlTextarea1">Descrition de la section (peut être vide) : </label>
                                 <textarea name="thesectionDesc" class="form-control" id="exampleFormControlTextarea1" rows="5" maxlength="500"></textarea>
                             </div>
 
