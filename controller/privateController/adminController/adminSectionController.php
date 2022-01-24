@@ -19,5 +19,8 @@ if (isset($_GET['create'])) {
  sinon affichages de toutes les sections (cRud)
  */
 } else {
-    echo "Accueil gestion section";
+    // variables qui va contenir toutes les sections
+    $recupSections = "";
+    // Appel de la vue
+    require_once "../view/adminView/sectionsAdminView.php";
 }
