@@ -19,6 +19,16 @@ if (isset($_GET['create'])) {
             require_once "../view/adminView/sectionsCreateAdminView.php";
             exit();
         }
+
+        // insertion
+        $insert = thesectionCreate($dbConnect, $title, $desc);
+
+        // si l'insertion est réussie
+        if ($insert) {
+            // redirection
+            header("Location: ./?p=section");
+            die();
+        }
     }
 
     // Appel de la vue
