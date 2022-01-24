@@ -20,7 +20,7 @@ if (isset($_GET['create'])) {
  */
 } else {
     // variables qui va contenir toutes les sections
-    $recupSections = "";
+    $recupSections = thesectionSelectAllWithDesc($dbConnect);
     // Appel de la vue
     require_once "../view/adminView/sectionsAdminView.php";
 }
