@@ -48,6 +48,17 @@ if (isset($_GET['create'])) {
         $id = (int) $_POST['idthesection'];
         $title = htmlspecialchars(strip_tags(trim($_POST['thesectionTitle'])), ENT_QUOTES);
         $desc = htmlspecialchars(strip_tags(trim($_POST['thesectionDesc'])), ENT_QUOTES);
+
+        // titre non valide
+        if (empty($title)) {
+            $error = "Titre non valide";
+        }
+        // modification
+        elseif (thesectionUpdateById($dbConnect, $title, $desc, $id)) {
+            // redirection
+            header("Location: ./?p=section");
+            die();
+        }
     }
 
     $item = thesectionSelectOne($dbConnect, $id);
