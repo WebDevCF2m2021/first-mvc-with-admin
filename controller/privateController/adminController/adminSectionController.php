@@ -45,6 +45,9 @@ if (isset($_GET['create'])) {
  */
 } elseif (isset($_GET['delete']) && ctype_digit($_GET["delete"]) && !empty($_GET["delete"])) {
 
+
+    // Appel de la vue
+    require_once "../view/adminView/sectionsDeleteAdminView.php";
     /*
  sinon affichages de toutes les sections (cRud)
  */
