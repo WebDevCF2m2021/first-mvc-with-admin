@@ -19,4 +19,5 @@ if (isset($_GET['create'])) {
  sinon affichages de toutes les sections (cRud)
  */
 } else {
+    echo "Accueil gestion section";
 }

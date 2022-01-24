@@ -22,7 +22,9 @@ if (isset($_GET['p'])) {
 
             // si on gère les sections
         case "section":
-            echo "adminController/adminSectionController.php";
+
+            // Appel du contrôleur admin qui gère les sections
+            require_once "adminController/adminSectionController.php";
             break;
     }
     // si la variable get "p" n'existe pas    
